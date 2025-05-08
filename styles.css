@@ -1,0 +1,224 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+
+header {
+    height: 10vh;
+    position: relative;
+    background-color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.topmost {
+    position: relative;
+    top: 1.5vh;
+}
+
+.logoText {
+    position: relative;
+    max-width: 50vw;
+    /* border: 1px black solid; */
+    left: 1vw;
+}
+
+.navigation {
+    position: absolute;
+    width: 8vw;
+    font-size: 0;
+    /* border: 1px rgb(0, 0, 0) solid; */
+    left: 90vw;
+    top: 0vh;
+
+}
+
+.navigation a {
+    margin: 0 0.5vw;
+}
+
+
+.titlePage {
+    position: absolute;
+    left: 50vw;
+    top: 4vh;
+}
+
+main {
+    font-size: 0;
+    height: 76vh;
+    position: relative;
+    background-color: rgb(136, 50, 50);
+}
+
+
+/* GAME 1 */
+    .leaderboardhouseC {
+        border: 1px black solid;
+        width: 20vw;
+        position: absolute;
+        top: 20vh;
+        height: 56vh;
+
+    }
+
+    .gameContainer {
+        border: 1px black solid;
+        position: relative;
+        max-width: 75vw;
+        height: 76vh;
+        left: 20vw;
+    }
+
+
+    #game-OneHouseC {
+        border: 1px black solid;
+        width: 25vw;
+        max-width: 25vw;
+        height: 35vh;
+        max-height: 35vh;
+        position: absolute;
+        top: 35vh;
+        left:15vw;
+    }
+
+    #game-TwoHouseC {
+        
+        position: absolute;
+        border: 1px black solid;
+        width: 25vw;
+        max-width: 25vw;
+        height: 35vh;
+        max-height: 35vh;
+        top: 10vh;
+        left: 45vw;
+    }
+
+/* GAME 2 */
+
+.gameFrame1 {
+    /* border: 1px solid; */
+    width: 83.5vw;
+    height: 76vh;
+    max-width: 85vw;
+
+    position: relative;
+
+}
+
+.leftSide {
+    position: relative;
+    border: 1px solid;
+    width: 15vw;
+    max-width: 15vw;
+    height: 76vh;
+}
+
+.gameFram1RightSide {
+    position: relative;
+    border: 1px solid;
+    width: 15vw;
+    max-width: 15vw;
+    height: 76vh;
+    top: -76vh;
+    left: 83.5vw;
+}
+
+.tiles1stGame {
+    position: absolute;
+    background-color: bisque;
+    border: 1px black solid;
+    top: 0;
+    left: 15vw;
+    width: 68.5vw;
+    height: 65vh;
+
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+}
+
+.tiles1stGame button {
+    position: relative;
+    left: 1.7vw;
+    width: 5vw;
+    height: 5vh;
+    margin: 1vh 0;
+}
+
+.centerDown {
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    left: 15vw;
+    bottom: 0;
+    background-color: blueviolet;
+    z-index: 10;
+    width: 68.5vw;
+    height: 10.8vh;
+}
+/* 
+.centerDown h4 {
+    font-size: 1vw;
+    margin:3.5vh 2vw;
+    border: 0.2vw black solid;
+    border-radius: 30%;
+    padding: 1vw;
+} */
+
+.centerDown h4 {
+    font-size: 1vw;
+    margin: 3.5vh 2vw;
+    border: 0.2vw black solid;
+    border-radius: 10%;
+    padding: 1vw;
+
+    /* Center the text horizontally and vertically */
+    display: flex;
+    
+    align-items: center;     /* vertically */
+
+    /* Optional: set width/height to ensure consistent size */
+    width: 12vw;
+    height: 4vh;
+}
+
+
+
+
+
+footer {
+    /* border: 0.5vw green solid; */
+    height: 12.7vh;
+    position: relative;
+    background-color: aqua;
+    text-align: center;
+    
+}
+
+.Footer {
+    font-size: 1.5vh;
+}
+
+#st-Line{
+    font-weight: bold;
+}
+#contacts {
+    position: relative;
+    bottom: 0;
+}
+
+#ndrd-Line{
+    position: relative;
+    top: -1.2vh;
+}
+
+img {
+    height: 2vw;
+}
