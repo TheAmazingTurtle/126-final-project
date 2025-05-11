@@ -67,7 +67,7 @@ main {
     .gameContainer {
         border: 1px black solid;
         position: relative;
-        max-width: 75vw;
+        width: 75vw;
         height: 76vh;
         left: 20vw;
     }
@@ -96,15 +96,13 @@ main {
         left: 45vw;
     }
 
-/* GAME 2 */
 
 .gameFrame1 {
     /* border: 1px solid; */
-    width: 83.5vw;
-    height: 70vh;
-    max-width: 85vw;
-    background-color: #64f95c;
-    z-index: 1;
+    width: 78.5vw;
+    height: 65vh;
+    /* background-color: #64f95c; */
+    z-index: 5;
 
     position: relative;
     top: 3vh;
@@ -117,28 +115,31 @@ main {
     border: 1px solid;
     width: 15vw;
     max-width: 15vw;
-    height: 70vh;
+    height: 65vh;
+    left: 5vw;
+    top: 3vh;
 }
 
 .gameFram1RightSide {
     position: relative;
-    background-color: #64f95c;
+    /* background-color: #64f95c; */
     border: 1px solid;
     width: 15vw;
     max-width: 15vw;
-    height: 70vh;
-    top: -67vh;
-    left: 83.5vw;
+    height: 65vh;
+    top: -59vh;
+    left: 80.2vw;
 }
 
 .tiles1stGame {
+    border: 1px black solid;
     position: absolute;
     background-color: bisque;
     border: 1px black solid;
-    top: 0;
-    left: 15vw;
-    width: 68.5vw;
-    height: 65vh;
+    top: 3vh;
+    left: 20vw;
+    width: 60vw;
+    height: 61vh;
 
 
     display: flex;
@@ -161,26 +162,25 @@ main {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    left: 15vw;
-    bottom: 0;
-    background-color: blueviolet;
+    left: 20.05vw;
+    bottom: -3vh;
+    background-color: bisque;
     z-index: 10;
-    width: 68.5vw;
+    width: 60vw;
     height: 7vh;
 }
 
 .centerDown h4 {
     font-size: 1vw;
-    margin: 3.5vh 2vw;
     border: 0.2vw black solid;
     border-radius: 10%;
-    padding: 0.5vh 0.5vw;
+    padding: 0.1vh 0.3vw;
 
     /* Center the text horizontally and vertically */
     display: flex;
     align-items: center; 
     position: relative;
-    top: -1vh;
+    top: 0vh;
     /* Optional: set width/height to ensure consistent size */
     width: 12vw;
     height: 4vh;
@@ -189,73 +189,82 @@ main {
 
 #timerGlassHour {
     width: 8vw;
-    height: 32vh;
+    height: 29vh;
     position: relative;
     margin: 2vh 3.5vw;
 }
 
 #powerUpJar {
     width: 12vw;
-    height: 31.5vh;
+    height: 29.5vh;
     position: relative;
     padding: 0vh 1.5vw;
 }
 
-.tutorial-dialogue {
-    background-color: rgb(255, 255, 255);
-    font-size: 2vh;
-    padding-top: 0.5vh;
-}
+        .tutorial-dialogue {
+            background-color: rgb(255, 255, 255);
+            font-size: 1.5vh;
+            padding-top: 0.5vh;
+            /* margin-bottom: 0.5vh; */
+        }
 
-#headTitle {
-    font-weight: bold;
-    text-align: center;
-}
+        #headTitle {
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 1vh;
+            /* background-color: #64f95c; */
+            z-index: 2;
+        }
 
-#game1Tut {
-    position: relative;
-    max-width: 13vw;
-    padding: 1vh 1vw;
-    margin: 2vh 1.5vw;
-    height: 28vh;
-}
-
-
-#game2Tut {
-    position: absolute;
-    /* bottom: 5vh; */
-    top: 30vh;
-    height: 27.9vh;
-    max-width: 10vw;
-    padding: 1vh 1vh;
-    /* padding: 1vh 1vw; */
-
-    
-}
-
-.containerTut {
-    text-indent: 1.5vw;
-    position: relative;
-    top: -2vh;
-    overflow-y: auto;  
-    overflow-x: hidden;
-
-}
+        #game1Tut {
+            position: relative;
+            max-width: 13vw;
+            padding: 1vh 1vw;
+            margin: 2vh 1.5vw;
+            height: 23vh;
+        }
 
 
-#game1Tutorial {
-    height: 16vh;
 
-}
+        #game2Tut {
+            position: absolute;
+            /* bottom: 5vh; */
+            top: 30vh;
+            height: 27.9vh;
+            max-width: 10vw;
+            padding: 1vh 1vh;
+            /* padding: 1vh 1vw; */
 
-#game2Tutorial {
-    height: 16.5vh;
-    padding-left: 1vw;
+            
+        }
 
-}
+        .containerTut {
+            text-indent: 1.5vw;
+            position: relative;
+            top: -2vh;
+            overflow-y: auto;  
+            overflow-x: hidden;
+
+        }
+
+
+        #game1Tutorial {
+            height: 16vh;
+            position: relative;
+            top: 1vh;
+            margin-top: 1vh;
+
+        }
+
+        #game2Tutorial {
+            
+            height: 16.5vh;
+            padding-left: 1vw;
+        }
 
 
 #game1character {
+    max-width: 13vw;
     position: relative;
     margin: 0vh 1.1vw;
     width: 13vw;
@@ -421,8 +430,29 @@ main {
     margin: auto;
     position: relative;
     top: -1.5vh;
+    width: 2.5vw;
+    height: 1.5vw;
+    appearance: none;
+    border: 0.1vh solid black;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 50%;
     
 }
+
+.game2Table input[type="radio"]:checked::before {
+  content: "";
+  display: block;
+  width: 1.5vw;
+  height: 1vw;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 tr{
     background-color: #64f95c;
