@@ -3,3 +3,9 @@ Home
 - add new asset for game-2
 - add asset for leaderboard
 - need custom question mark symbol for header
+
+Game 1
+- need customized bubble speech design
+
+Game 2
+- need 4 food category {drink, vegetable, meat, dessert}

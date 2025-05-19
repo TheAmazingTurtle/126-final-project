@@ -6,163 +6,158 @@
     <link rel="stylesheet" href="styles.css">
     <title>GITLOG GOURMET</title>
 </head>
-<body>
-
-
-    <div class="aspect-ratio-wrapper">
-        <div class="gameContainer">
+<body class="game2-page">
+    <div id="aspect-ratio-wrapper">
+        <div id="game-container">
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
 
                 <nav>
-                    <a href="home.html" class="nav-btn">
+                    <a href="home.html">
                         <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home">
                     </a>
-                    <a href="leaderboard.html" class="nav-btn">
+                    <a href="leaderboard.html">
                         <img src="https://png.pngtree.com/png-clipart/20191120/original/pngtree-trophy-icon-png-image_5069231.jpg" alt="Leaderboard">
                     </a>
                 </nav>
             </header>
             <main>
-                <div class="game2-page3">
+                <div class="game2-content">
                 <!-- Left part of the page for the game 2 - code breaker -->
-                    <div class="upperPartGame2"></div>
-                        <div class="leftPartGame2">
-                            
-                            <div class="correct-outfit">
-                                <img id="hidden-outfit" src="url">
-                            </div>
-
-
-                            <div class="current-status">
-                                <p id="headTitle"> CURRENT STATUS </p>
-                                <!-- <p id="status-update"> Correct Object: 2 <br> Correct O and Color: 1</p> -->
-                            </div>
-
-                            <div class="tutorial-dialogue" id="game2Tut">
-                                <p id="headTitle">TUTORIAL DIALOGUE</p>
-                                <div class="containerTut">
-                                    <!-- <p id="game2Tutorial">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae earum reiciendis voluptatibus sit molestias perspiciatis ut, numquam necessitatibus laudantium ipsam velit sapiente? Nostrum nobis labore corporis, deleniti vitae possimus maiores.</p> -->
-                            
-                                </div>
-                                
-                            </div>
-
-                            
-                            <div class="guessed-outfit">
-                                <img id="current-outfit" src="url">
-                            </div>
-
+                    <div class="leftPartGame2">
+                        
+                        <div class="correct-outfit">
+                            <img id="hidden-outfit" src="url">
                         </div>
 
-                        <div class="game2ChooseTable">
-                            <table class="game2Table">
-                                <tbody>
-                                    <tr id="row-1" data-row="1" class="colorShowOff">
-                                        <td><img id="tile-1-1" data-col="1" src="red.png"></td>
-                                        <td><img id="tile-1-2" data-col="2" src="blue.png"></td>
-                                        <td><img id="tile-1-3" data-col="3" src="yellow.png"></td>
-                                        <td><img id="tile-1-4" data-col="4" src="green.png"></td>
-                                        <td><img id="tile-1-5" data-col="5" src="purple.png"></td>
-                                    </tr>
+
+                        <div class="current-status">
+                            <p id="headTitle"> CURRENT STATUS </p>
+                            <!-- <p id="status-update"> Correct Object: 2 <br> Correct O and Color: 1</p> -->
+                        </div>
+
+                        <div class="tutorial-dialogue" id="game2Tut">
+                            <p id="headTitle">TUTORIAL DIALOGUE</p>
+                            <div class="containerTut">
+                                <!-- <p id="game2Tutorial">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae earum reiciendis voluptatibus sit molestias perspiciatis ut, numquam necessitatibus laudantium ipsam velit sapiente? Nostrum nobis labore corporis, deleniti vitae possimus maiores.</p> -->
+                        
+                            </div>
+                            
+                        </div>
+
+                        
+                        <div class="guessed-outfit">
+                            <img id="current-outfit" src="url">
+                        </div>
+
+                    </div>
+
+                    <div class="game2ChooseTable">
+                        <table class="game2Table">
+                            <tbody>
+                                <tr id="row-1" data-row="1" class="colorShowOff">
+                                    <td><img id="tile-1-1" data-col="1" src="red.png"></td>
+                                    <td><img id="tile-1-2" data-col="2" src="blue.png"></td>
+                                    <td><img id="tile-1-3" data-col="3" src="yellow.png"></td>
+                                    <td><img id="tile-1-4" data-col="4" src="green.png"></td>
+                                    <td><img id="tile-1-5" data-col="5" src="purple.png"></td>
+                                </tr>
 
 
-                                    <tr id="row-2" data-row="2" class="clothesChoice">
-                                        <td><img src="dress1.png" alt="Dress 1"></td>
-                                        <td><img src="dress2.png" alt="Dress 2"></td>
-                                        <td><img src="dress3.png" alt="Dress 3"></td>
-                                        <td><img src="dress4.png" alt="Dress 4"></td>
-                                        <td><img src="dress5.png" alt="Dress 5"></td>
-                                    </tr>
-                                    <tr id="row-3" data-row="3" class="guideIndicator">
-                                        <td><input type="radio" name="row3-choice" value="1"></td>
-                                        <td><input type="radio" name="row3-choice" value="2"></td>
-                                        <td><input type="radio" name="row3-choice" value="3"></td>
-                                        <td><input type="radio" name="row3-choice" value="4"></td>
-                                        <td><input type="radio" name="row3-choice" value="5"></td>
-                                    </tr>
+                                <tr id="row-2" data-row="2" class="clothesChoice">
+                                    <td><img src="dress1.png" alt="Dress 1"></td>
+                                    <td><img src="dress2.png" alt="Dress 2"></td>
+                                    <td><img src="dress3.png" alt="Dress 3"></td>
+                                    <td><img src="dress4.png" alt="Dress 4"></td>
+                                    <td><img src="dress5.png" alt="Dress 5"></td>
+                                </tr>
+                                <tr id="row-3" data-row="3" class="guideIndicator">
+                                    <td><input type="radio" name="row3-choice" value="1"></td>
+                                    <td><input type="radio" name="row3-choice" value="2"></td>
+                                    <td><input type="radio" name="row3-choice" value="3"></td>
+                                    <td><input type="radio" name="row3-choice" value="4"></td>
+                                    <td><input type="radio" name="row3-choice" value="5"></td>
+                                </tr>
 
-                                    <tr id="row-4" data-row="4" class="clothesChoice">
-                                        <td><img src="dress1.png" alt="Dress 1"></td>
-                                        <td><img src="dress2.png" alt="Dress 2"></td>
-                                        <td><img src="dress3.png" alt="Dress 3"></td>
-                                        <td><img src="dress4.png" alt="Dress 4"></td>
-                                        <td><img src="dress5.png" alt="Dress 5"></td>
-                                    </tr>
-                                    <tr id="row-5" data-row="5" class="guideIndicator">
-                                        <td><input type="radio" name="row5-choice" value="1"></td>
-                                        <td><input type="radio" name="row5-choice" value="2"></td>
-                                        <td><input type="radio" name="row5-choice" value="3"></td>
-                                        <td><input type="radio" name="row5-choice" value="4"></td>
-                                        <td><input type="radio" name="row5-choice" value="5"></td>
-                                    </tr>
+                                <tr id="row-4" data-row="4" class="clothesChoice">
+                                    <td><img src="dress1.png" alt="Dress 1"></td>
+                                    <td><img src="dress2.png" alt="Dress 2"></td>
+                                    <td><img src="dress3.png" alt="Dress 3"></td>
+                                    <td><img src="dress4.png" alt="Dress 4"></td>
+                                    <td><img src="dress5.png" alt="Dress 5"></td>
+                                </tr>
+                                <tr id="row-5" data-row="5" class="guideIndicator">
+                                    <td><input type="radio" name="row5-choice" value="1"></td>
+                                    <td><input type="radio" name="row5-choice" value="2"></td>
+                                    <td><input type="radio" name="row5-choice" value="3"></td>
+                                    <td><input type="radio" name="row5-choice" value="4"></td>
+                                    <td><input type="radio" name="row5-choice" value="5"></td>
+                                </tr>
 
-                                    <tr id="row-6" data-row="6" class="clothesChoice">
-                                        <td><img src="dress1.png" alt="Dress 1"></td>
-                                        <td><img src="dress2.png" alt="Dress 2"></td>
-                                        <td><img src="dress3.png" alt="Dress 3"></td>
-                                        <td><img src="dress4.png" alt="Dress 4"></td>
-                                        <td><img src="dress5.png" alt="Dress 5"></td>
-                                    </tr>
-                                    <tr id="row-7" data-row="7" class="guideIndicator">
-                                        <td><input type="radio" name="row7-choice" value="1"></td>
-                                        <td><input type="radio" name="row7-choice" value="2"></td>
-                                        <td><input type="radio" name="row7-choice" value="3"></td>
-                                        <td><input type="radio" name="row7-choice" value="4"></td>
-                                        <td><input type="radio" name="row7-choice" value="5"></td>
-                                    </tr>
+                                <tr id="row-6" data-row="6" class="clothesChoice">
+                                    <td><img src="dress1.png" alt="Dress 1"></td>
+                                    <td><img src="dress2.png" alt="Dress 2"></td>
+                                    <td><img src="dress3.png" alt="Dress 3"></td>
+                                    <td><img src="dress4.png" alt="Dress 4"></td>
+                                    <td><img src="dress5.png" alt="Dress 5"></td>
+                                </tr>
+                                <tr id="row-7" data-row="7" class="guideIndicator">
+                                    <td><input type="radio" name="row7-choice" value="1"></td>
+                                    <td><input type="radio" name="row7-choice" value="2"></td>
+                                    <td><input type="radio" name="row7-choice" value="3"></td>
+                                    <td><input type="radio" name="row7-choice" value="4"></td>
+                                    <td><input type="radio" name="row7-choice" value="5"></td>
+                                </tr>
 
-                                    <tr id="row-8" data-row="8" class="clothesChoice">
-                                        <td><img src="dress1.png" alt="Dress 1"></td>
-                                        <td><img src="dress2.png" alt="Dress 2"></td>
-                                        <td><img src="dress3.png" alt="Dress 3"></td>
-                                        <td><img src="dress4.png" alt="Dress 4"></td>
-                                        <td><img src="dress5.png" alt="Dress 5"></td>
-                                    </tr>
-                                    <tr id="row-9" data-row="9" class="guideIndicator">
-                                        <td><input type="radio" name="row9-choice" value="1"></td>
-                                        <td><input type="radio" name="row9-choice" value="2"></td>
-                                        <td><input type="radio" name="row9-choice" value="3"></td>
-                                        <td><input type="radio" name="row9-choice" value="4"></td>
-                                        <td><input type="radio" name="row9-choice" value="5"></td>
-                                    </tr>
+                                <tr id="row-8" data-row="8" class="clothesChoice">
+                                    <td><img src="dress1.png" alt="Dress 1"></td>
+                                    <td><img src="dress2.png" alt="Dress 2"></td>
+                                    <td><img src="dress3.png" alt="Dress 3"></td>
+                                    <td><img src="dress4.png" alt="Dress 4"></td>
+                                    <td><img src="dress5.png" alt="Dress 5"></td>
+                                </tr>
+                                <tr id="row-9" data-row="9" class="guideIndicator">
+                                    <td><input type="radio" name="row9-choice" value="1"></td>
+                                    <td><input type="radio" name="row9-choice" value="2"></td>
+                                    <td><input type="radio" name="row9-choice" value="3"></td>
+                                    <td><input type="radio" name="row9-choice" value="4"></td>
+                                    <td><input type="radio" name="row9-choice" value="5"></td>
+                                </tr>
 
-                                    <tr id="row-10" data-row="10">
-                                        <td class="game2Button" style="text-align:center;">
-                                            <button id="game2-resetButton">RESET</button>
-                                            <button id="game2-submitButton">SUBMIT</button>
-                                        </td>
-                                    </tr>
+                                <tr id="row-10" data-row="10">
+                                    <td class="game2Button" style="text-align:center;">
+                                        <button id="game2-resetButton">RESET</button>
+                                        <button id="game2-submitButton">SUBMIT</button>
+                                    </td>
+                                </tr>
 
-                                </table>
                             </table>
-                        </div>
+                        </table>
                     </div>
 
                         
                     <div class="underscreen">
-                            <div class="textPrevGuesses">
-                                <div class="previousTitle-Game2"> 
-                                    <h3 id="Previous-guesses"> PREVIOUS GUESSES </h2>
-                                </div>
-                                <div class="indicator-game2">
-                                    <h4  id="difficulty">GUESSES LEFT: </h4>
-                                    <h4  id="score">DIFFICULTY: </h4>
-                                    <h4  id="tilesTurned">SCORE: </h4>
-                                </div>
+                        <div class="textPrevGuesses">
+                            <div class="previousTitle-Game2"> 
+                                <h3 id="Previous-guesses"> PREVIOUS GUESSES </h2>
                             </div>
+                            <div class="indicator-game2">
+                                <h4  id="difficulty">GUESSES LEFT: </h4>
+                                <h4  id="score">DIFFICULTY: </h4>
+                                <h4  id="tilesTurned">SCORE: </h4>
+                            </div>
+                        </div>
 
-                            <div class="PrevGuesses">
-                                <img class="guesses" id="guess-1" src="url">
-                                <img class="guesses" id="guess-2" src="url">
-                                <img class="guesses" id="guess-3" src="url">
-                                <img class="guesses" id="guess-4" src="url">
-                                <img class="guesses" id="guess-5" src="url">
-                                <img class="guesses" id="guess-6" src="url">
-                            </div>
+                        <div class="PrevGuesses">
+                            <img class="guesses" id="guess-1" src="url">
+                            <img class="guesses" id="guess-2" src="url">
+                            <img class="guesses" id="guess-3" src="url">
+                            <img class="guesses" id="guess-4" src="url">
+                            <img class="guesses" id="guess-5" src="url">
+                            <img class="guesses" id="guess-6" src="url">
+                        </div>
                     </div>
                 </div>
-
             </main>
             <footer>
                 <p id="st-Line"> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
@@ -171,9 +166,6 @@
                 </p>
                 <p id="contacts"> For feedback or bug reports, contact us at: kentGenillo@purbleplayweb.com</p>
             </footer>
-    
-    
-        
         </div>
     </div>
 </body>
