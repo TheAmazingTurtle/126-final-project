@@ -1,15 +1,21 @@
 const tileValues = [];
+const isTileActive = [];
+const maxFaceUpCard = 2;
 
 let numRows = 6;
 let numCols = 6;
 let numVarieties = 6;
 
+let difficulty = "EASY";
+let score = 0;
+let numOfTilesFlipped = 0;
+
 let resizeTimer;
 
 document.addEventListener("DOMContentLoaded", generateRandomTileValues);
 
-window.addEventListener("load", generateTileMatrix);
-window.addEventListener("resize", generateTileMatrix);
+window.addEventListener("load", adjustTileMatrix);
+window.addEventListener("resize", adjustTileMatrix);
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -29,11 +35,18 @@ function generateRandomTileValues() {
         tileValues.push(value, value);
     }
 
-    while (tileValues.length < totalTiles) {
-        tileValues.push(null);
+    shuffleArray(tileValues);
+
+    const boolBuffer = [];
+    for (let i = 0; i < numCols; i++) {
+        boolBuffer.push(true);
     }
 
-    return shuffleArray(tileValues);
+    for (let i = 0; i < numRows; i++) {
+        isTileActive.push(boolBuffer);
+    }
+
+    generateTileMatrix();
 }
 
 function generateTileMatrix() {
@@ -43,21 +56,31 @@ function generateTileMatrix() {
     const tileContainerHeight = matrixContainer.offsetHeight;
 
     const imageSrc = "assets/images/tile.png";
-    const tileSize = tileContainerHeight / numRows;
+    const tileSize = (tileContainerHeight / numRows) * 0.8;
+    const tileContainerSize = tileContainerHeight / numRows;
 
     tileContainer.innerHTML = "";
 
+    let tileValueTracker = 0;
     for (let row = 0; row < numRows; row++) {
         const tileRow = document.createElement("tr");
 
         for (let col = 0; col < numCols; col++) {
             const tileCell = document.createElement("td");
+            
+
+            if (!isTileActive[row][col]){
+                tileRow.appendChild(tileCell);
+                continue;
+            }
 
             const tileDiv = document.createElement("div");
             const tileInnerDiv = document.createElement("div");
            
             tileDiv.classList.add("tile");
-            tileInnerDiv.classList.add("tile-inner");    
+            tileInnerDiv.classList.add("tile-inner");
+
+            tileDiv.id = tileValueTracker;    
 
             const tileFrontDiv = document.createElement("div");
             tileFrontDiv.classList.add("tile-front");
@@ -65,8 +88,6 @@ function generateTileMatrix() {
             const imgFront = document.createElement("img");
             imgFront.src = imageSrc;
             imgFront.alt = `Tile ${row * numCols + col + 1} Front`;
-            imgFront.style.width = tileSize + "px";
-            imgFront.style.height = tileSize + "px";
 
             tileFrontDiv.appendChild(imgFront);
 
@@ -74,10 +95,8 @@ function generateTileMatrix() {
             tileBackDiv.classList.add("tile-back");
 
             const imgBack = document.createElement("img");
-            imgBack.src = "assets/tile-entity/0.png";
+            imgBack.src = "assets/tile-entity/" + tileValues[tileValueTracker] + ".png";
             imgBack.alt = `Tile ${row * numCols + col + 1} Back`;
-            imgBack.style.width = tileSize + "px";
-            imgBack.style.height = tileSize + "px";
 
             tileBackDiv.appendChild(imgBack);
 
@@ -87,59 +106,100 @@ function generateTileMatrix() {
             tileDiv.appendChild(tileInnerDiv);
             tileCell.appendChild(tileDiv);
             tileRow.appendChild(tileCell);
+
+            tileValueTracker++;
         }
 
         tileContainer.appendChild(tileRow);
     }
 
-    document.querySelectorAll('.tile').forEach(card => {
-        card.style.width = tileSize + "px";
-        card.style.height = tileSize + "px";
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.addEventListener('click', () => {
+            if (tile.classList.contains('flipped') || countFaceUpTiles() >= maxFaceUpCard) {
+                return;
+            }
 
-        card.addEventListener('click', () => {
-            card.classList.toggle('flipped');
+            tile.classList.add('flipped');
+            numOfTilesFlipped++;
+            refreshStats();
+
+            if (countFaceUpTiles() === maxFaceUpCard) {
+                setTimeout(manageFlipEvent, 1000);
+            }
         });
     });
 }
 
-// DEAL WITH THIS SHIT
+function manageFlipEvent() {
+    const flippedTiles = [...document.querySelectorAll('.flipped')];
 
-const tiles = document.querySelectorAll(".tile");
-let firstTile = null;
-let secondTile = null;
-let lockBoard = false;
+    if (flippedTiles.length !== 2) return;
 
-tiles.forEach(tile => {
-tile.addEventListener("click", () => {
-    if (lockBoard || tile === firstTile || tile.classList.contains("matched")) return;
+    const [tile1, tile2] = flippedTiles;
+    const tile1Id = tile1.id;
+    const tile2Id = tile2.id;
 
-    tile.classList.add("flipped");
+    console.log(tile1Id, tile2Id);
 
-    if (!firstTile) {
-    firstTile = tile;
-    return;
+    if (tileValues[tile1Id] === tileValues[tile2Id]) {
+        // Match
+        isTileActive[tile1Id] = false;
+        isTileActive[tile2Id] = false;
+
+        tile1.style.visibility = 'hidden';
+        tile2.style.visibility = 'hidden';
+
+        score += 50;
+        refreshStats();
     }
 
-    secondTile = tile;
-    lockBoard = true;
-
-    const isMatch = firstTile.dataset.value === secondTile.dataset.value;
-
-    if (isMatch) {
-        firstTile.classList.add("matched");
-        secondTile.classList.add("matched");
-        resetTurn();
-    } else {
-        setTimeout(() => {
-            firstTile.classList.remove("flipped");
-            secondTile.classList.remove("flipped");
-            resetTurn();
-        }, 1000); // wait before unflipping
-    }
-});
-});
-
-function resetTurn() {
-    [firstTile, secondTile] = [null, null];
-    lockBoard = false;
+    resetAllFaceUpTiles();
 }
+
+function countFaceUpTiles() {
+    return document.querySelectorAll('.tile.flipped').length;
+}
+
+function resetAllFaceUpTiles() {
+    document.querySelectorAll('.tile.flipped').forEach(tile => {
+        tile.classList.remove('flipped');
+    });
+}
+
+function adjustTileMatrix() {
+    const matrixContainer = document.getElementById("game1-matrix-container");
+    const tileContainer = document.getElementById("game1-tile-matrix");
+    const tileContainerWidth = matrixContainer.offsetWidth;
+    const tileContainerHeight = matrixContainer.offsetHeight;
+
+    const tileSize = (tileContainerHeight / numRows) * 0.8;
+    const tileContainerSize = tileContainerHeight / numRows;
+
+    tileContainer.style.width = tileContainerWidth + "px";
+    tileContainer.style.height = tileContainerHeight + "px";
+
+    document.querySelectorAll('#game1-tile-matrix td').forEach(tileCell => {
+        tileCell.style.width = tileContainerSize + "px";
+        tileCell.style.height = tileContainerSize + "px";
+    });
+
+    document.querySelectorAll('#game1-tile-matrix img').forEach(img => {
+        img.style.width = tileSize + "px";
+        img.style.height = tileSize + "px";
+        img.style.margin = tileContainerSize * 0.1 + "px";
+    }); 
+
+
+    document.querySelectorAll('.tile').forEach(tile => {
+        tile.style.width = tileSize + "px";
+        tile.style.height = tileSize + "px";
+    });
+}
+
+function refreshStats() {
+    document.getElementById("difficulty-value").innerText = difficulty;
+    document.getElementById("score-value").innerText = score;
+    document.getElementById("tiles-turned-value").innerText = numOfTilesFlipped;
+}
+
+refreshStats();
