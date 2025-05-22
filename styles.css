@@ -387,7 +387,7 @@ main {
 
                 }
 
-                    input[type="radio"]:checked + img {
+                    #game2-cabinet input[type="radio"]:checked + img {
                         outline: 5px solid red;
                         outline-offset: -3px;
                         border-radius: 4px;
@@ -400,7 +400,7 @@ main {
                     border-bottom: #a76c3f solid 10px;
                 }
 
-                input[type="radio"] {
+                #game2-cabinet input[type="radio"] {
                     display: none;
                 }
 
@@ -508,106 +508,79 @@ main {
                     margin: 0;
                 }
 
-    .leaderboard-page {
-        position: absolute;
+
+    #leaderboard-content {
         width: 100%;
         height: 100%;
-        /* background-color: #812c2c; */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        /* justify-content: flex-start; */
-        /* box-sizing: border-box; */
-    }
 
-    /* Top Buttons */
-    .chooseGameLeaderboard {
-        position: relative;
-        top: 6%;
-        margin: 0.5% 0;
-        width: 80%;
-        height: 2%;
         display: flex;
+        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 10%;
-        box-sizing: border-box;
     }
 
-    .chooseGameLeaderboard button {
-        background-color: white;
-        font-weight: bold;
-        font-size: 0.5vw;
-        padding: 0.5% 13%;
-        cursor: pointer;
-        border: none;
-        border-radius: 0.5vh;
-    }
+        #leaderboard-switch-button-container {
+            width: 80%;
+            height: 10%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+        }
 
-    .chooseGameLeaderboard button:active {
-        background-color: #6a74a0; /* slightly darker color when tapped */
-        transform: scale(0.96);
-    }
+            #leaderboard-switch-button-container button {
+                height: 60%;
+                width: 40%;
+                font-weight: bold;
+                font-size: 0.5vw;
+                cursor: pointer;
+                border-radius: 0.5vh;
+            }
 
-    /* Table container */
-    .table-LeaderBoard {
-        position: relative;
-        top: 12%;
-        width: 90%;
-        height: 78%;
-        display: flex;
-        justify-content: space-between;
-        align-items: stretch;
-        background-color: black;
-        box-sizing: border-box;
-    }
+            /* Table container */
+        #leaderboard-table-container {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    /* Score & Rating columns */
-    .game-leftSide-topScores {
-        width: 70%;
-        height: 94%;
-        position: relative;
-        top: 3%;
-        left: 1.5%;
-        background-color: limegreen;
-    }
+            #leaderboard-table-container input[type="radio"] {
+                display: none;
+            }
 
-    .game-rightSide-rating {
-        width: 25%;
-        height: 94%;
-        top: 3%;
-        right: 1.5%;
-        position: relative;
-        background-color: limegreen;
-    }
+            #leaderboard-table-container input[type="radio"]:not(:checked) + table {
+                display: none;
+            }
 
-    /* Tables themselves */
-    .topScorers,
-    .topScorers-rating {
-        width: 100%;
-        height: 100%;
-    }
+            #leaderboard-table-container table{
+                width: 90%;
+                height: 90%;
+            }
 
-    .topScorers th,
-    .topScorers-rating th {
-        background-color: violet;
-        text-align: center;
-        vertical-align: middle;
-        padding: 0;
-        
-    }
+            #leaderboard-table-container tbody{
+                overflow-x: scroll;
+            }
 
-    .topScorers td,
-    .topScorers-rating td {
-        text-align: center;
-        font-size: 1vw;
-    }
+            #leaderboard-table-container table, tr, th, td{
+                border: solid 1px black;
+            }
 
-    .headingsLeaderboard h2 {
-        margin: 0;
-        padding: 0;
-        font-size: 1vw;
-    }
+            #leaderboard-table-container th {
+                margin: 0;
+                padding: 0;
+                font-size: 1vw;
+            }
+
+            #game1-board{
+                background-color: red;
+            }
+
+            #game2-board{
+                background-color: green;
+            }
 }
 
 
