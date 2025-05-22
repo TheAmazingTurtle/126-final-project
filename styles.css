@@ -66,7 +66,7 @@ header {
 }
 
 .game2-page main{
-    background-image: url("assets/images/game-screen-background.jpg");
+    background-image: url("assets/images/game2-screen-background.jpg");
 }
 
 main {
@@ -75,13 +75,34 @@ main {
     position: relative;
     background-size: 100% auto;
 
-    #title-card {
+    /* #title-card {
         position: absolute;
         width: 30%;
         height: auto;
         left: 35%;
         top: 5%;
+
+
+        z-index: 10;
+        animation-name: fallBounce;
+        animation-duration: 3s;
+        animation-timing-function: ease-out;
+        animation-iteration-count: 1;
+        animation-direction: forward;
     }
+
+    @keyframes fallBounce {
+        0%   { transform: translateY(-105%); }
+        30%  { transform: translateY(5%); }
+        45%  { transform: translateY(-50%); }
+        70%  { transform: translateY(5%); }
+        75%  { transform: translateY(-25%); }
+        90%  { transform: translateY(5%); }
+        95%  { transform: translateY(-15%); }
+        97%  { transform: translateY(5%); }
+        98%  { transform: translateY(0); }
+        100% { transform: translateY(5%); }
+    } */
 
     #leaderboard-house {
         border: 1px black solid;
@@ -530,7 +551,7 @@ main {
         position: absolute;
         width: 100%;
         height: 100%;
-        /* background-color: #812c2c; */
+        background-color: #812c2c;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -542,18 +563,16 @@ main {
     .chooseGameLeaderboard {
         position: relative;
         top: 6%;
-        margin: 0.5% 0;
         width: 80%;
-        height: 2%;
+        left: 10%;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10%;
-        box-sizing: border-box;
     }
 
     .chooseGameLeaderboard button {
-        background-color: white;
+        background-color: rgb(179, 17, 17);
         font-weight: bold;
         font-size: 0.5vw;
         padding: 0.5% 13%;
@@ -571,13 +590,14 @@ main {
     .table-LeaderBoard {
         position: relative;
         top: 12%;
+        left: 5%;
         width: 90%;
         height: 78%;
         display: flex;
         justify-content: space-between;
-        align-items: stretch;
+        /* align-items: stretch; */
         background-color: black;
-        box-sizing: border-box;
+        /* box-sizing: border-box; */
     }
 
     /* Score & Rating columns */
@@ -644,4 +664,52 @@ footer p {
     padding: 0;
     font-size: 10%;
 }
+
+
+
+
+/* All of the animations elements are on this rows under */
+
+
+
+#title-card {
+    position: absolute;
+    width: 30%;
+    height: auto;
+    left: 35%;
+    top: 5%;
+
+
+    z-index: 10;
+    animation-name: gitlogFall;
+    animation-duration: 1.8s;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-fill-mode: forwards;
+    transform-origin: bottom center;
+}
+
+        @keyframes gitlogFall {
+            0%   { transform: translateY(-100%) scaleY(1.4); }
+            20%  { transform: translateY(0%) scaleY(0.6); }
+            35%  { transform: translateY(-25%) scaleY(1.1); }
+            50%  { transform: translateY(0%) scaleY(0.8); }
+            60%  { transform: translateY(-12%) scaleY(1.05); }
+            70%  { transform: translateY(0%) scaleY(0.9); }
+            78%  { transform: translateY(-6%) scaleY(1.02); }
+            85%  { transform: translateY(0%) scaleY(0.95); }
+            92%  { transform: translateY(-3%) scaleY(1); }
+            100% { transform: translateY(0%) scaleY(1); }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
