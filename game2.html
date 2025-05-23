@@ -9,6 +9,24 @@
 <body class="game2-page">
     <div id="aspect-ratio-wrapper">
         <div id="game-container">
+            <div id="game2-end-card">
+                <h2 id="game2-result">Game Over</h2>
+                <div class="end-card-stats">
+                    <p><strong>Number of Attempts:</strong> <span id="attempts-end-card">0</span></p>
+                    <p><strong>Difficulty:</strong> <span id="difficulty-end-card">Easy</span></p>
+                </div>
+                <div class="end-card-buttons">
+                    <a href="home.html" class="button-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home Button">
+                    </a>
+                    <a href="game2.html" class="button-link" onclick="playAgain()">
+                        <img src="" alt="Restart Button">
+                    </a>
+                    <a href="leaderboard.html" class="button-link">
+                        <img src="" alt="Trophy Button">
+                    </a>
+                </div>
+            </div>
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
 
@@ -182,30 +200,27 @@
 
                         
                     <div id="game2-bottom">
-                        <div id="game2-stat-container">
-                            <div id="game2-attempt-title"> 
-                                <h3> ATTEMPTS </h2>
+                        <div id="game2-attempt-title"> 
+                            <div>
+                                <h4> ATTEMPTS: </h4>
                             </div>
-                            <div id="game2-stat">
+                        </div>
+                        <div id="game2-attempt-container"></div>
+                        <div id="game2-stat">
+                            <div>
                                 <h4 id="game2-difficulty">GUESSES LEFT: </h4>
-                                <h4 id="game2-score">DIFFICULTY: </h4>
                                 <h4 id="game2-tiles-turned">SCORE: </h4>
                             </div>
                         </div>
-
-                        <div id="game2-attempt-container"></div>
                     </div>
                 </div>
             </main>
             <footer>
-                <p id="st-Line"> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
-                <p id="ndrd-Line"> Fan-made project inspired by the <br>
-                    original Purble Place game. <br>
-                </p>
-                <p id="contacts"> For feedback or bug reports, contact us at: kentGenillo@purbleplayweb.com</p>
+                <p> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
             </footer>
         </div>
     </div>
     <script src="code-breaker-game-script.js"></script>
+    <script src="universal-style-script.js"></script>
 </body>
 </html>

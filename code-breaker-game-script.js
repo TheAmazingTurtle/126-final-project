@@ -166,16 +166,25 @@ function evaluateGuess() {
 
     const correctGuessStatus = document.createElement('h3');
     correctGuessStatus.innerHTML = correctGuess.toString();
+    correctGuessStatus.classList.add("attempt-hint-correct-guess");
     document.getElementById(`attempt-${attemptNum}-hint`).appendChild(correctGuessStatus);
 
     const correctRowStatus = document.createElement('h3');
     correctRowStatus.innerHTML = correctRow.toString();
+    correctRowStatus.classList.add("attempt-hint-correct-row");
     document.getElementById(`attempt-${attemptNum}-hint`).appendChild(correctRowStatus);
 
     attemptNum++;
 
     document.getElementById("correct-guess-prompt").innerHTML = `Correct Guess: ${correctGuess}`;
     document.getElementById("correct-row-prompt").innerHTML = `Correct Row: ${correctRow}`;
+
+    if (correctGuess == numGuessTypes ){
+        endGame(true);
+    }
+    else if (attemptNum - 1 == maxAttempts){
+        endGame(false);
+    }
 }
 
 function isValidSubmit() {
@@ -195,4 +204,13 @@ function isValidSubmit() {
     });
 
     return guessComplete;
+}
+
+function endGame(win){
+    const result = (win ? "YOU WIN" : "YOU LOSE");
+
+    document.getElementById('game2-end-card').style.display = 'flex';
+    document.getElementById('game2-result').innerHTML = result;
+    document.getElementById('attempts-end-card').innerHTML = attemptNum;
+    document.getElementById('difficulty-end-card').innerHTML = difficulty;
 }

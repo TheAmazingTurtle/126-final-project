@@ -9,6 +9,27 @@
 <body class="game1-page">
     <div id="aspect-ratio-wrapper">
         <div id="game-container">
+            <div id="game1-end-card">
+                <h2>Game Over</h2>
+                <div class="end-card-stats">
+                    <p><strong>Tiles Flipped:</strong> <span id="tiles-flipped-end-card">0</span></p>
+                    <p><strong>Time Elapsed:</strong> <span id="elapsed-time-end-card">00:00</span></p>
+                    <p><strong>Score:</strong> <span id="score-end-card">0</span></p>
+                    <p><strong>Difficulty:</strong> <span id="difficulty-end-card">Easy</span></p>
+                </div>
+                <div class="end-card-buttons">
+                    <a href="home.html" class="button-link">
+                        <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home Button">
+                    </a>
+                    <a href="game1.html" class="button-link" onclick="playAgain()">
+                        <img src="" alt="Restart Button">
+                    </a>
+                    <a href="leaderboard.html" class="button-link">
+                        <img src="" alt="Trophy Button">
+                    </a>
+                </div>
+            </div>
+
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
                 
@@ -24,7 +45,10 @@
             <main>
                 <div class="game1-content">
                     <div id="game1-left">
-                            <!-- <video id="hourglass" src="hourglass.webm" type="video/webm" autoplay muted playsinline></video> -->
+                            <div id="game1-time-container">
+                                <h3>TIME ELAPSE:</h3>
+                                <p id="game1-time">0:00</p>
+                            </div>
                             <img id="timerGlassHour" src="https://media.istockphoto.com/id/1128826884/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment.jpg?s=612x612&w=0&k=20&c=390e76zN_TJ7HZHJpnI7jNl7UBpO3UP7hpR2meE1Qd4=">
                             <img id="powerUpJar" src="https://media.istockphoto.com/id/1128826884/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment.jpg?s=612x612&w=0&k=20&c=390e76zN_TJ7HZHJpnI7jNl7UBpO3UP7hpR2meE1Qd4=">
                     </div>
@@ -60,11 +84,7 @@
                 </div>
             </main>
             <footer>
-                <p id="st-Line"> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
-                <p id="ndrd-Line"> Fan-made project inspired by the <br>
-                    original Purble Place game. <br>
-                </p>
-                <p id="contacts"> For feedback or bug reports, contact us at: kentGenillo@purbleplayweb.com</p>
+                <p> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
             </footer>
 
         

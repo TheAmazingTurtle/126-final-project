@@ -2,20 +2,32 @@ const tileValues = [];
 const isTileActive = [];
 const maxFaceUpCard = 2;
 
-let numRows = 6;
-let numCols = 6;
-let numVarieties = 6;
+let numRows = 2;
+let numCols = 2;
+let totalCards = numRows * numCols;
+
+let numVarieties = 10;
 
 let difficulty = "EASY";
 let score = 0;
 let numOfTilesFlipped = 0;
+let numMatchedTiles = 0;
+let secondsElapse = 0;
 
 let resizeTimer;
 
-document.addEventListener("DOMContentLoaded", generateRandomTileValues);
+document.addEventListener("DOMContentLoaded", initializePage);
 
 window.addEventListener("load", adjustTileMatrix);
 window.addEventListener("resize", adjustTileMatrix);
+
+function initializePage(){
+    generateRandomTileValues();
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    refreshStats();
+}
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -149,8 +161,13 @@ function manageFlipEvent() {
         tile1.style.visibility = 'hidden';
         tile2.style.visibility = 'hidden';
 
+        numMatchedTiles += 2;
         score += 50;
         refreshStats();
+
+        if (numMatchedTiles == totalCards){
+            endGame();
+        }
     }
 
     resetAllFaceUpTiles();
@@ -164,6 +181,14 @@ function resetAllFaceUpTiles() {
     document.querySelectorAll('.tile.flipped').forEach(tile => {
         tile.classList.remove('flipped');
     });
+}
+
+function endGame(){
+    document.getElementById('game1-end-card').style.display = 'flex';
+    document.getElementById('tiles-flipped-end-card').innerHTML = numOfTilesFlipped;
+    document.getElementById('elapsed-time-end-card').innerHTML = getTextFormTimeElapse();
+    document.getElementById('score-end-card').innerHTML = score;
+    document.getElementById('difficulty-end-card').innerHTML = difficulty;
 }
 
 function adjustTileMatrix() {
@@ -202,6 +227,21 @@ function refreshStats() {
     document.getElementById("tiles-turned-value").innerText = numOfTilesFlipped;
 }
 
-refreshStats();
+function updateClock() {
+    document.getElementById('game1-time').innerHTML = getTextFormTimeElapse();
+
+    secondsElapse++;
+}
+
+function getTextFormTimeElapse(){
+    const minutes = Math.floor(secondsElapse / 60);
+    const seconds = secondsElapse%60
+
+    const secondsText = (seconds < 10 ? "0" : "") + seconds.toString();
+    
+    return `${minutes}:${secondsText}`;
+}
+
+
 
 
