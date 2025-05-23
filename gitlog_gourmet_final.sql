@@ -19,18 +19,19 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE user (
-    user_ID INT AUTO_INCREMENT, 
+CREATE TABLE `user` (
+    user_ID INT NOT NULL AUTO_INCREMENT, 
     user_name VARCHAR(10) UNIQUE NOT NULL,
+    password INT NOT NULL CHECK (password >= 0 AND password <= 9999),
     MG_highest_score INT,
-    ranking_MG INT,
+    rating_MG INT,
     CB_highest_score INT,
-    ranking_CB INT,
+    rating_CB INT,
     PRIMARY KEY(user_ID)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE matching_game(
-    user_ID INT NULL,
+CREATE TABLE `matching_game`(
+    user_ID INT NOT NULL,
     MG_game_ID INT PRIMARY KEY AUTO_INCREMENT,
     MG_score INT,
     tiles_turned_count INT,  -- Stores the tile IDs (e.g., [1, 2, 3]) instead of file paths
@@ -38,10 +39,10 @@ CREATE TABLE matching_game(
     time_elapsed INT,      -- Time limit in seconds
     last_time_accessed DATETIME,
     difficulty ENUM('Easy', 'Medium', 'Hard'),
-    FOREIGN KEY(user_ID) REFERENCES user(user_ID)
-);
+    FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE code_breaker (
+CREATE TABLE `code_breaker`(
     user_ID INT NULL,
     CB_game_ID INT PRIMARY KEY AUTO_INCREMENT,                    -- Unique identifier for the game                -- Username (foreign key relationship could be here)
     CB_score INT,
@@ -52,8 +53,8 @@ CREATE TABLE code_breaker (
     attempts_combination JSON,                      -- JSON array of asset IDs for the correct combination
     user_combination JSON,                         -- JSON array of asset IDs for the user's guessed combination
     -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
-    FOREIGN KEY(user_ID) REFERENCES user(user_ID)  -- Assuming there's a player table with usernames
-);
+    FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 COMMIT;
 
