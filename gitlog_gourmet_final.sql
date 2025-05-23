@@ -24,11 +24,11 @@ CREATE TABLE `user` (
     user_name VARCHAR(10) UNIQUE NOT NULL,
     password INT NOT NULL CHECK (password >= 0 AND password <= 9999),
     MG_highest_score INT,
-    ranking_MG INT,
+    rating_MG INT,
     CB_highest_score INT,
-    ranking_CB INT,
+    rating_CB INT,
     PRIMARY KEY(user_ID)
-); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `matching_game`(
     user_ID INT NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `matching_game`(
     last_time_accessed DATETIME,
     difficulty ENUM('Easy', 'Medium', 'Hard'),
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)
-); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE `code_breaker`(
     user_ID INT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE `code_breaker`(
     user_combination JSON,                         -- JSON array of asset IDs for the user's guessed combination
     -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
-); ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 COMMIT;
 
