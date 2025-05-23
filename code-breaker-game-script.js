@@ -5,6 +5,7 @@ const maxAttempts = 6;
 const correctValues = [];
 
 let attemptNum = 1;
+let difficulty = "Easy";
 
 document.addEventListener("DOMContentLoaded", initializeGame);
 
@@ -15,7 +16,6 @@ function initializeGame() {
     createAttemptObjects();
     assignOnClickEventToImg();
     generateOrderToGuess();
-    
 }
 
 function createAttemptObjects(){
@@ -213,4 +213,20 @@ function endGame(win){
     document.getElementById('game2-result').innerHTML = result;
     document.getElementById('attempts-end-card').innerHTML = attemptNum;
     document.getElementById('difficulty-end-card').innerHTML = difficulty;
+
+    const fruitCorrectImg = document.createElement('img');
+    fruitCorrectImg.src = "assets/cabinet/fruit-" + correctValues[0] + ".png";
+    document.getElementById("fruit-correct").appendChild(fruitCorrectImg);
+
+    const mainCorrectImg = document.createElement('img');
+    mainCorrectImg.src = "assets/cabinet/main-" + correctValues[1] + ".png";
+    document.getElementById("main-correct").appendChild(mainCorrectImg);
+
+    const drinkCorrectImg = document.createElement('img');
+    drinkCorrectImg.src = "assets/cabinet/drink-" + correctValues[2] + ".png";
+    document.getElementById("drink-correct").appendChild(drinkCorrectImg);
+
+    const dessertCorrectImg = document.createElement('img');
+    dessertCorrectImg.src = "assets/cabinet/dessert-" + correctValues[3] + ".png";
+    document.getElementById("dessert-correct").appendChild(dessertCorrectImg);
 }

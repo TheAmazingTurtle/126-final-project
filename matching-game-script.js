@@ -2,8 +2,11 @@ const tileValues = [];
 const isTileActive = [];
 const maxFaceUpCard = 2;
 
-let numRows = 2;
-let numCols = 2;
+const basePoint = 50;
+const comboPointBonus = 10;
+
+let numRows = 10;
+let numCols = 10;
 let totalCards = numRows * numCols;
 
 let numVarieties = 10;
@@ -13,6 +16,9 @@ let score = 0;
 let numOfTilesFlipped = 0;
 let numMatchedTiles = 0;
 let secondsElapse = 0;
+
+let combo = 0;
+
 
 let resizeTimer;
 
@@ -136,7 +142,7 @@ function generateTileMatrix() {
             refreshStats();
 
             if (countFaceUpTiles() === maxFaceUpCard) {
-                setTimeout(manageFlipEvent, 1000);
+                setTimeout(manageFlipEvent, 500);
             }
         });
     });
@@ -162,12 +168,16 @@ function manageFlipEvent() {
         tile2.style.visibility = 'hidden';
 
         numMatchedTiles += 2;
-        score += 50;
+        score += basePoint + comboPointBonus*combo;
+        combo++;
         refreshStats();
 
         if (numMatchedTiles == totalCards){
             endGame();
         }
+    }
+    else {
+        combo = 0;
     }
 
     resetAllFaceUpTiles();
@@ -241,7 +251,3 @@ function getTextFormTimeElapse(){
     
     return `${minutes}:${secondsText}`;
 }
-
-
-
-
