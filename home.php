@@ -109,7 +109,6 @@ $error = $_GET['error']?? '';
         </div>
     </div>
     <script src="home-script.js" defer></script>
-    <!-- <script src="animationElements.js" defer></script> -->
 
 </body>
 </html>
