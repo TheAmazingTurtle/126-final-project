@@ -22,7 +22,6 @@ body, html {
     max-height: 100vh;
     max-width: 177.78vh; /* 16/9 = 1.7778 */
     position: relative;
-    /* overflow: hidden; */
     overflow: hidden;
 
     background-size: cover;        /* Ensures image covers the whole container */
@@ -46,15 +45,16 @@ body, html {
 }
 
 .game2-page #aspect-ratio-wrapper {
-    background-image: url("assets/images/game2-screen-background.jpg");
+    background-image: url("assets/images/game2-screen-background_darker.png");
 }
+
 
     
 
 #game-container {
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 4;
     border: solid 1px black;
 }
 
@@ -98,10 +98,6 @@ header {
     align-items: center;
 
 
-}
-
-.game2-page main{
-    /* background-image: url("assets/images/game2-screen-background.jpg"); */
 }
 
 main {
@@ -209,7 +205,7 @@ main {
                 #FFF 0 0 5px,
                 #FFE0B2 0 0 10px,
                 #FFAB91 0 0 20px,
-                #FF6F61 0 0 30px; /* deep amber */
+                #FF6F61 0 0 30px;
             
             color: #FFFFFF;
         }
@@ -391,12 +387,20 @@ main {
             align-items: center;
         }
             #game1-dialogue-container{
-                height: 40%;
+                height: 38%;
                 width: 80%;
-                background-color: #6a74a0;
+                background-color: #c25349;
+                border-radius: 5%; 
+                box-shadow: 0 0 1px 3px #FFF, 0 0 1px 5px #FFE0B2, 0 0 3px 7px #FFAB91, 0 0 5px 10px #FF6F61;
                 display: flex;
                 flex-direction: column;
                 text-align: center;
+
+                
+                background-image: url("assets/images/Matching Game Tutorial.png");
+                background-size: contain;      
+                background-position: center;   
+                background-repeat: no-repeat;
             }
 
             #game1-dialogue-container h2{
@@ -441,37 +445,6 @@ main {
                 
             }
 
-                #correct-order {
-                    width: 35%;
-                    height: 50%;
-                    border: 1px black solid;
-                    background-color: pink;
-                    position: absolute;
-                    top: 5%;
-                    left: 4.5%;
-
-                    display: grid;
-                    grid-template-columns: 1fr 1fr; /* 2 columns */
-                    grid-template-rows: 1fr 1fr;    /* 2 rows */
-                    place-items: center;
-                }
-
-                     #correct-order div {
-                        border: 1px solid black;
-                        background-color: #6a74a0;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        width: 85%;
-                        height: 85%;
-                    }
-
-                    #correct-order img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-
                 #game2-status {
                     position: absolute;
                     background-color: white;
@@ -500,23 +473,41 @@ main {
                      }
 
                 #game2-tutorial-container{
-                    font-size: 1vw;
-                    height: 30%;
-                    width: 35%;
-                    border: 1px #fd0303 solid ;
-
-                    
+                    height: 55%;
+                    width: 33%;
                     position: absolute;
                     bottom: 5%;
-                    left: 4.5%;
+                    left: 5%;
+
+                    box-shadow: 0 0 1px 1px #FFF, 0 0 1px 2px #FFE0B2, 0 0 3px 3px #FFAB91, 0 0 5px 5px #FF6F61;
+                    background-image: url("assets/images/Wordle Tutorial.png");
+                    background-size: contain;      
+                    background-position: center;   
+                    background-repeat: no-repeat;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                    #game2-tutorial-container h2{
+                        background-color: #2aae23;
+                        font-weight: bold;
+                        font-size: 1vw;
+                        text-align: center;
+                        width: 100%;
+                        padding: 1%;
+                        margin: 0;
+                    }
                     
                 }
 
                 #guessed-order {
+                    border-radius: 5%;
                     width: 50%;
                     height: 70%;
                     border: 1px black solid;
-                    background-color: aqua;
+                    background-color: hsl(0, 59%, 41%, 0.5);
                     display: grid;
                     grid-template-columns: 1fr 1fr; /* 2 columns */
                     grid-template-rows: 1fr 1fr;    /* 2 rows */
@@ -528,7 +519,7 @@ main {
 
                     #guessed-order div {
                         border: 1px solid black;
-                        background-color: #6a74a0;
+                        border-radius: 5%;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -537,18 +528,63 @@ main {
                     }
 
                     #guessed-order div img {
+                        border-radius: 5%;
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
+                        box-shadow: 2px 2px 1px 2px black, 2px 2px 5px 3px black;
+                    }
+
+
+                #correct-order {
+                    width: 24%;
+                    height: 30%;
+                    border-radius: 5%;
+                    border: 1px black solid;
+                    background-color:  hsl(0, 59%, 41%, 0.5);
+                    position: absolute;
+                    top: 5%;
+                    left:9%;
+
+                    display: grid;
+                    grid-template-columns: 1fr 1fr; /* 2 columns */
+                    grid-template-rows: 1fr 1fr;    /* 2 rows */
+                    place-items: center;
+                }
+
+                     #correct-order div {
+                        
+                    border-radius: 5%;
+                        border: 1px solid black;
+                        background-color: #6a74a0;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 75%;
+                        height: 85%;
+                    }
+
+                    #correct-order div img {
+                        
+                        border-radius: 5%;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        
                     }
 
             #game2-cabinet {
                 height: 90%;
                 width: 40%;
+                border-radius: 5%;
                 background-color: brown;
+                box-shadow: 0 0 1px 3px #FFF, 0 0 1px 5px #FFE0B2, 0 0 3px 7px #FFAB91, 0 0 5px 10px #FF6F61;
+                display: flex;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                
+
             }
 
                 #game2-cabinet form{
@@ -557,12 +593,17 @@ main {
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                }
+                    border: none;
+                }  
+
 
                 #game2-cabinet table{
                     width: 100%;
                     height: 90%;
                     border-collapse: collapse;
+                    /* border: none; */
+                    
+                    border-radius: 5%;
 
                 }
 
@@ -570,13 +611,15 @@ main {
                         outline: 5px solid red;
                         outline-offset: -3px;
                         border-radius: 4px;
+                        border-radius: 15%;
                     }
 
                 #game2-cabinet table td {
                     text-align: center;
                     vertical-align: middle;
                     padding: 0;
-                    border-bottom: #a76c3f solid 10px;
+                    border: none;
+                    
                 }
 
                 #game2-cabinet input[type="radio"] {
@@ -585,7 +628,10 @@ main {
 
                 #game2-cabinet table img {
                     cursor: pointer;
-                    width: 60%;
+                    width: 70%;
+                    border-radius: 15%;
+                    box-shadow: 2px 2px 1px 3px #000000, 2px 2px 5px 3px #000000;
+                    
 
                 }
                 
@@ -595,12 +641,34 @@ main {
 
                 tbody {
                     height: 50%;
-                }
+                    position: relative;
+                }  
 
-                #game2-button-container{
-                    height: 20%;
-                    background-color: #6a74a0;
-                }
+                
+
+            
+
+                    #game2-button-container{
+                        background-color: #5e2020;
+                        
+                    }
+
+                    #game2-reset-button, #game2-submit-button {
+                        all: unset; 
+                        display: inline-block;
+                        cursor: pointer;
+                        position: relative;
+                        width: 15%;
+
+                    }
+
+
+
+                
+
+
+
+
 
         #game2-bottom {
             color: white;
@@ -630,15 +698,6 @@ main {
                 align-items: center;
                 font-size: 60%;
             }
-
-            #game2-attempt-container {
-                height: 70%;
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: space-evenly;
-            }
-
             
             #game2-stat {
                 width: 100%;
@@ -663,9 +722,27 @@ main {
                 font-size: 30%;
             }
 
+
+            
+
+            #game2-attempt-container {
+                position: relative;
+                left: -1%;
+                height: 70%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+
             #game2-attempt-container > div{
-                border: 1px solid yellow;
-                background-color: white;
+                /* border: 1px solid yellow; */
+                /* background-color: white; */
+                background-image: url("assets/images/Takeout box closed.png");
+                background-size: cover;        /* Ensures image covers the whole container */
+                background-position: center;   /* Centers the image */
+                background-repeat: no-repeat;
                 width: 12.5%;
                 height: 80%;
 
@@ -684,19 +761,20 @@ main {
             }
 
                 .attempt-image-container div {
-                    border:#a76c3f solid 1px;
+                    position: relative;
+                    right: -20%;
                     width: 60%;
                     height: 80%;
                 }
 
                 #game2-attempt-container img {
+
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                 }
 
             #game2-attempt-container .attempt-hints {
-                border: #2aae23 solid 1px;
                 width: 15%;
                 height: 100%;
 
@@ -704,23 +782,44 @@ main {
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+
+                position: relative;
+                right: -15%
             }
 
                 #game2-attempt-container .attempt-hints h3 {
+                    background-color: #3c95b8;
+                    
+                    border-radius: 10%;
                     font-size: 80%;
                     text-align: center;
-                    width: 50%;
+                    width: 100%;
                     height: 50%;
                     padding: 0;
                     margin: 0;
+                    box-shadow: #550c0c 0 0 5px,
+                                #440707 0 0 10px,
+                                #3a0404 0 0 20px,
+                                #380202 0 0 30px;
                 }
 
                 .attempt-hint-correct-guess {
-                    color: green;
+                    color: rgb(241, 248, 241);
+                    text-shadow: 
+                            #000000 0 0 3px,
+                            #000000 0 0 4px,
+                            #000000 0 0 5px,
+                            #000000 0 0 10px;
+                            
                 }
 
                 .attempt-hint-correct-row{
-                    color: yellow;
+                    color: rgb(255, 255, 255);
+                    text-shadow: 
+                            #000000 0 0 3px,
+                            #000000 0 0 4px,
+                            #000000 0 0 5px,
+                            #000000 0 0 10px;
                 }
 
 
@@ -1177,7 +1276,7 @@ footer p {
 
 #home_leaderboard_transition {
     background-color: rgb(255, 255, 255);
-    background-image: url("assets/images/game2-screen-background.jpg");
+    background-image: url("assets/images/game2-screen-background_darker.jpg");
     width: 100%;
     height: 100%;
     position: absolute;
@@ -1339,6 +1438,11 @@ footer p {
     bottom: -138px;
     animation-delay: 25s;
 }
+
+
+
+
+
 
 
 
