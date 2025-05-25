@@ -1,6 +1,14 @@
+console.log('this is animation elements');
+
 document.querySelectorAll('.game-link').forEach(link => {
+  if (link.getAttribute('onclick') && link.getAttribute('onclick').includes('toggle()')) {
+    return; // Skip animation handler for this link
+  }
+  
+  
   link.addEventListener('click', function (e) {
     e.preventDefault(); 
+
 
     const titleCard = document.getElementById('title-card');
     const blackBackground =  document.getElementById('blackBackground');
@@ -44,3 +52,5 @@ document.querySelectorAll('.game-link').forEach(link => {
     }, 1500); // match with animation duration
   });
 });
+
+
