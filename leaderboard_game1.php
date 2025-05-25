@@ -4,6 +4,7 @@ include 'DBConnector.php';
 
 $MG_high_scores_query = "SELECT user_name, rating_MG, MG_highest_score 
                         FROM user 
+                        WHERE MG_highest_score > 0
                         ORDER BY MG_highest_score DESC;";
 
 $MG_high_scores_result = $conn->query($MG_high_scores_query);

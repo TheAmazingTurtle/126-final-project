@@ -24,9 +24,9 @@ CREATE TABLE `user` (
     user_name VARCHAR(10) UNIQUE NOT NULL,
     password INT NOT NULL CHECK (password >= 0 AND password <= 9999),
     MG_highest_score INT,
-    rating_MG INT,
+    rating_MG ENUM('1','2','3','4','5'),
     CB_highest_score INT,
-    rating_CB INT,
+    rating_CB ENUM('1','2','3','4','5'),
     PRIMARY KEY(user_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -37,7 +37,7 @@ CREATE TABLE `matching_game`(
     tiles_turned_count INT,  -- Stores the tile IDs (e.g., [1, 2, 3]) instead of file paths
     tile_placement JSON, -- Stores the tile placements (e.g., [1, 4, 2])
     time_elapsed INT,      -- Time limit in seconds
-    last_time_accessed DATETIME,
+    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     difficulty ENUM('Easy', 'Medium', 'Hard'),
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -49,7 +49,7 @@ CREATE TABLE `code_breaker`(
     correct_guess INT,
     correct_col INT,                       -- User's saved score for the game
     guesses_left INT,                        -- Number of remaining attempts
-    last_time_accessed DATETIME,                   -- Last time the game was accessed
+    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,                   -- Last time the game was accessed
     attempts_combination JSON,                      -- JSON array of asset IDs for the correct combination
     user_combination JSON,                         -- JSON array of asset IDs for the user's guessed combination
     -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game

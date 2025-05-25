@@ -1,39 +1,42 @@
 <?php
 
-//should replace manager, if ever a manager is entered
-//put alert if empty
-//FIXED!
-
 include 'DBConnector.php';
-$user_name = $_POST["name"];
-$password = $_POST["password"];
+$user_name = trim($_POST["user_name"]);
+$password = (int)$_POST["password"];
 
-$user_exists = False;
+$stmt = $conn->prepare("SELECT user_ID FROM user WHERE user_name = ?");
+$stmt->bind_param("s", $user_name);
+$stmt->execute();
+$stmt->store_result();
+if ($stmt->num_rows > 0) {
+    header("Location: home.php?error= Username is already taken. Please enter a different user name or proceed to log in.");
+    exit();
+}
+$stmt->close();
 
-$look_up_user_query = "SELECT * FROM user WHERE user_name = $user_name;";
-$result_existing_user = $conn->query($look_up_user_query);
+// $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-if ($result_existing_user && $result_existing_user->num_rows > 0){
-    $user_exists = True;
-    return;
-}    
-
-$sign_up_query = "INSERT INTO 
-        user(user_ID, 
-        user_name, 
+$sign_up_stmt = $conn->prepare("INSERT INTO user
+        (user_name, 
         password, 
         MG_highest_score, 
-        ranking_MG, 
+        rating_MG, 
         CB_highest_score, 
-        ranking_CB) 
-        VALUES (NULL, '$user_name', '$password', '0', '0', '0', '0');";
-    
-if ($sign_up_query) {
-    echo"New user created successfully! You may now proceed to login.";
-    header("Location: home.html");
+        rating_CB) 
+        VALUES (?,?, '0', '0', '0', '0')");
+
+$sign_up_stmt->bind_param("si",$user_name,$password);
+
+if ($sign_up_stmt->execute()) {
+    $msg = urlencode("Sign up successful! Hello, $user_name, you may now proceed to login!");
+    header("Location: home.php?message=$msg");
+    exit();
     
 } else {
-    echo "Error creating user: " . $sql . "<br>" . $conn->error;
+    die("Error creating user: " . $conn->error);
 }
+
+$sign_up_stmt->close();
 $conn->close();
 ?>  
+
