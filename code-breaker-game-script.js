@@ -150,8 +150,8 @@ function evaluateGuess() {
 
 
     // for background ~ open take out box
-    const openTakeOutBox = document.createElement('img'); 
-    openTakeOutBox.src = "assets/cabinet/Takeout box open back.png";
+    // const openTakeOutBox = document.createElement('img'); 
+    // openTakeOutBox.src = "assets/cabinet/Takeout box open back.png";
     document.getElementById(`attempt-${attemptNum}`).style.backgroundImage = 'url("assets/images/Takeout box open back.png")';
     document.getElementById(`attempt-${attemptNum}`).style.backgroundSize = 'cover';
     document.getElementById(`attempt-${attemptNum}`).style.backgroundRepeat = 'no-repeat';
@@ -218,6 +218,21 @@ function isValidSubmit() {
 function endGame(win){
     const result = (win ? "YOU WIN" : "YOU LOSE");
 
+    const ids = [
+        'fruit-correct',
+        'main-correct',
+        'drink-correct',
+        'dessert-correct'
+      ];
+
+    ids.forEach(id => {
+        const container = document.getElementById(id);
+        const img = container.querySelector('img');
+        if (img) {
+          img.remove();
+        }
+     });
+
     document.getElementById('game2-end-card').style.display = 'flex';
     document.getElementById('game2-result').innerHTML = result;
     document.getElementById('attempts-end-card').innerHTML = attemptNum;
@@ -238,4 +253,8 @@ function endGame(win){
     const dessertCorrectImg = document.createElement('img');
     dessertCorrectImg.src = "assets/cabinet/dessert-" + correctValues[3] + ".png";
     document.getElementById("dessert-correct").appendChild(dessertCorrectImg);
+
+
+    
+
 }
