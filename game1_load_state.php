@@ -1,15 +1,54 @@
-CREATE TABLE `matching_game`(
-    user_ID INT NOT NULL,
-    MG_game_ID INT PRIMARY KEY AUTO_INCREMENT,
-    MG_score INT,
-    tiles_turned_count INT,  -- Stores the tile IDs (e.g., [1, 2, 3]) instead of file paths
-    tile_placement JSON, -- Stores the tile placements (e.g., [1, 4, 2])
-    time_elapsed INT,      -- Time limit in seconds
-    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    difficulty ENUM('Easy', 'Medium', 'Hard'),
-    FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+<?php
+ini_set('display_errors', 1); // Don't show errors to frontend
+ini_set('log_errors', 1);     // Log them to PHP error log
+error_reporting(E_ALL);
 
-<!-- 
-load state
-- need to retrieve user id upon login, then track mg and cb tables to fill in data, select row with latest access time -->
+session_start();
+include 'DBConnector.php';
+
+if (!isset($_SESSION['user_ID'])) {
+    echo json_encode(['success' => false, 'message' => 'Not logged in']);
+    exit();
+}
+
+
+$user_ID = $_SESSION['user_ID'];
+
+$retrieve_user_sql = "SELECT * 
+                      FROM matching_game 
+                      WHERE user_ID =?
+                      ORDER BY last_time_accessed DESC LIMIT 1";
+
+$stmt = $conn->prepare($retrieve_user_sql);
+$stmt->bind_param("i", $user_ID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if($result->num_rows>0){
+    $row = $result->fetch_assoc();
+
+    $_SESSION['MG_game_ID'] = $row['MG_game_ID'];
+    $_SESSION['MG_score'] = $row['MG_score'];
+    $_SESSION['tile_placement'] = $row['tile_placement'];
+    $_SESSION['tiles_turned_down'] = $row['tiles_turned_down'];
+    $_SESSION['time_elapsed'] = $row['time_elapsed'];
+    $_SESSION['difficulty'] = $row['difficulty'];
+
+    echo json_encode([
+        "success"=> true,
+        "MG_score"=> $row['MG_score'],
+        "tile_placement"=> $row['tile_placement'],
+        "tiles_turned_count" => $row['tiles_turned_count'],
+        "time_elapsed" => $row['time_elapsed'],
+        "difficult" => $row['difficulty']
+    ]);
+} else {
+    echo json_encode(["success"=> false,"message"=>"No saved game found."]);
+}
+
+$conn-> close();
+
+?>
+
+
+
