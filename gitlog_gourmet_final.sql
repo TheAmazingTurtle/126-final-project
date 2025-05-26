@@ -56,6 +56,39 @@ CREATE TABLE `code_breaker`(
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+DELIMITER $$
+
+CREATE TRIGGER update_MG_highest_score
+AFTER INSERT ON matching_game
+FOR EACH ROW
+BEGIN
+    IF (SELECT MG_highest_score FROM user WHERE user_ID = NEW.user_ID) IS NULL
+        OR NEW.MG_score > (SELECT MG_highest_score FROM user WHERE user_ID = NEW.user_ID) THEN
+        UPDATE user
+        SET MG_highest_score = NEW.MG_score
+        WHERE user_ID = NEW.user_ID;
+    END IF;
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER update_CB_highest_score
+AFTER INSERT ON code_breaker
+FOR EACH ROW
+BEGIN
+    IF (SELECT CB_highest_score FROM user WHERE user_ID = NEW.user_ID) IS NULL
+        OR NEW.CB_score > (SELECT CB_highest_score FROM user WHERE user_ID = NEW.user_ID) THEN
+        UPDATE user
+        SET CB_highest_score = NEW.CB_score
+        WHERE user_ID = NEW.user_ID;
+    END IF;
+END $$
+
+DELIMITER ;
+
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

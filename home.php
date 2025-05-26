@@ -47,7 +47,7 @@ $error = $_GET['error']?? '';
                         <img id="leaderboard-house" src="assets/images/leaderboard-house.png" alt="Leaderboard House">
                     </a>
 
-                    <a href="game1.html" class="game-link" data-target="game1.html" data-protected="true">
+                    <a href="game1.php" class="game-link" data-target="game1.php" data-protected="true">
                         <img id="game1-house" src="assets/images/Shadow Checkout Resto.png">
                     </a>
 
