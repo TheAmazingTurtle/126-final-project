@@ -251,3 +251,61 @@ function getTextFormTimeElapse(){
     
     return `${minutes}:${secondsText}`;
 }
+
+function MG_saveGameState(){
+    console.log("Current User ID: ", currentUserID); // Add 
+    console.log("Saving game state...");
+    console.log("Game is being tracked.");
+    if (typeof currentUserID === 'undefined' || currentUserID === null) {
+        console.error("Error: currentUserID is not set. Cannot save game state.");
+        return;
+    }
+
+
+    console.log("Game is being tracked.");
+    console.log("Current User ID:", currentUserID);
+    console.log("Score:", score);
+    console.log("Tiles Flipped:", numOfTilesFlipped);
+    console.log("Tile Values:", tileValues);
+    console.log("Time Elapsed:", secondsElapse);
+    console.log("Difficulty:", difficulty);
+
+    const MG_gameState = {
+        user_ID: currentUserID,
+        MG_score: score,
+        tiles_turned_count: numOfTilesFlipped,
+        tile_placement: JSON.stringify(tileValues),
+        time_elapsed: secondsElapse,
+        last_time_accessed: new Date().toISOString(),
+        difficulty: difficulty,
+    };
+
+    console.log("Game state to save:", MG_gameState);
+
+
+    fetch("game1_save_state.php", {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(MG_gameState)
+    })
+    .then(response=> {
+        console.log("Fetch response status:", response.status);  
+        return response.json()
+    })
+    .then(data=> {
+        console.log("Game saved successfully: ", data);
+    })
+
+    .catch(error=>{
+        console.error("Error saving game:", error);
+    });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "s") {
+    console.log("Manual save triggered with S key");
+    MG_saveGameState();
+  }
+});

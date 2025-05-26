@@ -1,3 +1,13 @@
+<?php
+session_start();
+require_once 'DBConnector.php';
+
+if (!isset($_SESSION['user_ID'])) {
+    header("Location: login.php"); // Redirect if not logged in
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,6 +105,10 @@
         <div id="blackBackground"></div>
         <div id="whiteFadeIn_game"></div>
     </div>
+    <script>
+        const currentUserID = <?php echo json_encode($_SESSION['user_ID']?? null); ?>;
+        console.log("Current User ID:", currentUserID);
+    </script>
     <script src="matching-game-script.js"></script>
 </body>
 </html>

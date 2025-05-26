@@ -66,6 +66,26 @@ document.addEventListener("DOMContentLoaded", () => {
       setupPasswordToggles();
       setupLoginForm();
       setupGameLinkAnimations();
+
+      const gameLogo = document.getElementById('game-logo');
+      if (!isLoggedIn){
+        gameLogo.addEventListener('click', () => {
+          console.log("User is not logged in anyway. No need to log out.");
+          return;
+        });
+      } 
+
+      gameLogo.addEventListener('click', () =>{
+      fetch('logout.php?_=' + new Date().getTime())
+      .then(() =>{
+        console.log("User has logged out.");
+        window.location.href='home.php';
+      })
+      .catch(err=>{
+        console.log("Logout failed: ", err);
+      });
+    });
+
     })
     .catch(error => {
       console.error("Error checking login status:", error);
@@ -206,15 +226,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-  document.getElementById('game-logo').addEventListener('click', () =>{
-    fetch('logout.php?_=' + new Date().getTime())
-    .then(() =>{
-      console.log("User has logged out.");
-      window.location.href='home.php';
-    })
-    .catch(err=>{
-      console.log("Logout failed: ", err);
-    });
-  });
 });
