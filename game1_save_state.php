@@ -52,8 +52,6 @@ $difficulty = $data['difficulty'] ?? 'Easy';
                     difficulty = ?
               WHERE user_ID = ?");
         // $update_stmt-> execute([$score, $tiles_turned, $tile_placement, $time_elapsed, $difficulty, $user_ID]);
-
-        echo json_encode(['success'=> true, 'message'=>'Progress rewritten!']);
     
     if (!$update_stmt) {
         echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);

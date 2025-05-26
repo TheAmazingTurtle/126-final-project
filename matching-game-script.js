@@ -309,3 +309,31 @@ document.addEventListener("keydown", (e) => {
     MG_saveGameState();
   }
 });
+
+
+function MG_loadGameState(){
+    console.log("Current User ID: ", currentUserID); // Add 
+    console.log("Loading game state...");
+    console.log("Game is being loaded.");
+
+    fetch('game1_load_state.php')
+        .then(response=>response.json())
+        .then(data=> {
+            if(data.success){
+                score = data.MG_score;
+                numOfTilesFlipped = data.tiles_turned_count;
+                tileValues.length = 0;
+                tileValues.push(...JSON.parse(data.tile.placement));
+                secondsElapse = data.time_elapsed;
+                difficulty = data.difficulty;
+
+                generateTileMatrix;
+                refreshStats();
+                
+            }else if(data.message === "Not logged in"){
+                window.location.href = "login.php";
+            }
+
+        })
+
+}
