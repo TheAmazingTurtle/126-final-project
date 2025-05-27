@@ -7,7 +7,7 @@ const comboPointBonus = 10;
 
 let numRows = 10;
 let numCols = 10;
-let totalCards = numRows * numCols;
+let totalTiles = numRows * numCols;
 
 let numVarieties = 10;
 
@@ -46,7 +46,7 @@ function shuffleArray(array) {
 
 function generateRandomTileValues() {
     tileValues.length = 0;
-    isTileActive.length = 0;
+    isTileActive.length = 0;  
 
     const totalTiles = numRows * numCols;
     const pairs = Math.floor(totalTiles / 2);
@@ -64,7 +64,7 @@ function generateRandomTileValues() {
     }
 
     for (let i = 0; i < numRows; i++) {
-        isTileActive.push(boolBuffer);
+        isTileActive.push(boolBuffer.slice());
     }
 
     generateTileMatrix();
@@ -89,11 +89,7 @@ function generateTileMatrix() {
         for (let col = 0; col < numCols; col++) {
             const tileCell = document.createElement("td");
             
-
-            if (!isTileActive[row][col]){
-                tileRow.appendChild(tileCell);
-                continue;
-            }
+            tileRow.appendChild(tileCell);
 
             const tileDiv = document.createElement("div");
             const tileInnerDiv = document.createElement("div");
@@ -149,6 +145,8 @@ function generateTileMatrix() {
             }
         });
     });
+
+    adjustTileMatrix();
 }
 
 function manageFlipEvent() {
@@ -170,8 +168,14 @@ function manageFlipEvent() {
         const row2 = Math.floor(tile2Id / numCols);
         const col2 = tile2Id % numCols;
 
+        console.log(row1, col1, row2, col2);
+        console.log(isTileActive[row1][col1], isTileActive[row2][col2]);
+
+
         isTileActive[row1][col1] = false;
         isTileActive[row2][col2] = false;
+
+        console.log(isTileActive);
 
         tile1.style.visibility = 'hidden';
         tile2.style.visibility = 'hidden';
@@ -181,7 +185,7 @@ function manageFlipEvent() {
         combo++;
         refreshStats();
 
-        if (numMatchedTiles == totalCards){
+        if (numMatchedTiles == totalTiles){
             endGame();
         }
     }
@@ -264,7 +268,7 @@ function getTextFormTimeElapse(){
 function buildFullTileState(){
     const fullTileState = [];
 
-    for (let i = 0; i < totalCards ; i++){
+    for (let i = 0; i < totalTiles ; i++){
         const tile = document.getElementById(i);
         const row = Math.floor(i/numCols);
         const col = i % numCols;
@@ -272,8 +276,8 @@ function buildFullTileState(){
         fullTileState.push({
           tileID: i,
           value: tileValues[i],
-          flipped: tile?.classList.contains('flipped') || false,
-          active: tile?.style.visibility !== 'hidden'
+          flipped: tile.classList.contains('flipped'),
+          active: isTileActive[row][col]
 
         });
     }
@@ -281,50 +285,51 @@ function buildFullTileState(){
 }
 
 function retrieveFullTileState(fullTileState){
-    tileValues.length = 0;
-    isTileActive.length = 0;
+  isTileActive.length = 0;
+  tileValues.length = 0;
 
-
-    for (let i = 0; i < numRows; i++){
-      isTileActive[i] = new Array(numCols).fill(true);
+  for (let row = 0; row < numRows; row++){
+    isTileActive.push([]);
+    for (let col = 0; col < numCols; col++){
+      isTileActive[row].push(true);
+      tileValues.push(-1);
     }
+  }
 
 
-    fullTileState.forEach(tile => {
-      tileValues[tile.tileID] = tile.value;
-      const row = Math.floor(tile.tileID / numCols);
-      const col = tile.tileID % numCols;
+  fullTileState.forEach(tile => {
+    const row = Math.floor(tile.tileID / numCols);
+    const col = tile.tileID % numCols;
+
+    tileValues[tile.tileID] = tile.value;
     isTileActive[row][col] = tile.active;
-    });
+  });
 
+  generateTileMatrix();
 
-    generateTileMatrix();
-
-    for(let i = 0; i < totalCards; i++){
-      const row = Math.floor(i / numCols);
-      const col = i % numCols;
-      const tileElement = document.getElementById(i);
-      if(tileElement){
-        if(isTileActive[row][col]){
-          tileElement.classList.remove('hidden');
-        } else {
-          tileElement.classList.add('hidden');
-        }
+  for(let i = 0; i < totalTiles; i++){
+    const row = Math.floor(i / numCols);
+    const col = i % numCols;
+    const tileElement = document.getElementById(i.toString());
+    if(tileElement){
+      if(isTileActive[row][col]){
+        tileElement.style.visibility = 'visible';
+      } else {
+        tileElement.style.visibility = 'hidden';
       }
     }
+  }
 
-    setTimeout(() => {
-      fullTileState.forEach(tile => {
-        const row = Math.floor(tile.tileID / numCols);
-        const col = tile.tileID % numCols;
+  fullTileState.forEach(tile => {
+    const row = Math.floor(tile.tileID / numCols);
+    const col = tile.tileID % numCols;
 
-        // Flip only if tile is active and marked flipped in saved state
-        if (tile.flipped && isTileActive[row][col]) {
-          const flippedTile = document.getElementById(tile.tileID);
-          if (flippedTile) flippedTile.classList.add("flipped");
-        }
-      });
-    }, 50);
+    // Flip only if tile is active and marked flipped in saved state
+    if (tile.flipped && isTileActive[row][col]) {
+      const flippedTile = document.getElementById(tile.tileID.toString());
+      if (flippedTile) flippedTile.classList.add("flipped");
+    }
+  });
 }
 
 function MG_saveGameState(){
@@ -442,9 +447,6 @@ document.addEventListener("keydown", (e) => {
     console.log("Manual load triggered with L key");
     MG_loadGameState();
   }
-
-
-
 });
 
 
