@@ -254,7 +254,23 @@ function endGame(win){
     dessertCorrectImg.src = "assets/cabinet/dessert-" + correctValues[3] + ".png";
     document.getElementById("dessert-correct").appendChild(dessertCorrectImg);
 
-
-    
-
 }
+
+// function createGameState(){
+//     const gameState ={
+//         correctValues: [],
+//         userAttempts: [],
+//         currentAttempt: {
+//             guess: {
+//                 fruit: null,
+//                 main: null,
+//                 drink: null,
+//                 dessert: null, 
+//             },
+//             submitted: false;
+//         },
+//         cu
+
+
+//     }
+// }

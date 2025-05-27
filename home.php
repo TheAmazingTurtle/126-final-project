@@ -1,12 +1,22 @@
 <?php
 session_start();
-$isLoggedIn = isset($_SESSION['user_id']); // or your session key
-$userName = $isLoggedIn ? $_SESSION['user_name'] : '';
+
+if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['guest_counter'])) {
+        $_SESSION['guest_counter'] = 1;
+    } else {
+        $_SESSION['guest_counter']++;
+    }
+
+    if (!isset($_SESSION['user_name'])) {
+        $_SESSION['user_name'] = 'Guest_' . $_SESSION['guest_counter'];
+    }
+}
+
+$is_logged_in = isset($_SESSION['user_ID']); // or your session key
+$user_name = $_SESSION['user_name'];
 $message = $_GET['message']?? '';
 $error = $_GET['error']?? '';
-
-
-
 ?>
 
 
