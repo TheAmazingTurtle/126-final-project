@@ -1,7 +1,10 @@
 <?php
-ini_set('display_errors', 1); // Don't show errors to frontend
+ini_set('display_errors', 0); // Don't show errors to frontend
 ini_set('log_errors', 1);     // Log them to PHP error log
 error_reporting(E_ALL);
+
+
+header('Content-Type: application/json'); 
 
 session_start();
 include 'DBConnector.php';
@@ -29,25 +32,24 @@ if($result->num_rows>0){
 
     $_SESSION['MG_game_ID'] = $row['MG_game_ID'];
     $_SESSION['MG_score'] = $row['MG_score'];
-    $_SESSION['tile_placement'] = $row['tile_placement'];
     $_SESSION['tiles_turned_down'] = $row['tiles_turned_down'];
+    $_SESSION['full_tile_state'] = $row['full_tile_state'];
     $_SESSION['time_elapsed'] = $row['time_elapsed'];
     $_SESSION['difficulty'] = $row['difficulty'];
 
     echo json_encode([
         "success"=> true,
         "MG_score"=> $row['MG_score'],
-        "tile_placement"=> $row['tile_placement'],
         "tiles_turned_count" => $row['tiles_turned_count'],
+        "full_tile_state" => $row['full_tile_state'],
         "time_elapsed" => $row['time_elapsed'],
-        "difficult" => $row['difficulty']
+        "difficulty" => $row['difficulty']
     ]);
 } else {
     echo json_encode(["success"=> false,"message"=>"No saved game found."]);
 }
-
+file_put_contents("php_log.txt", json_encode($row), FILE_APPEND);
 $conn-> close();
-
 ?>
 
 

@@ -34,8 +34,8 @@ CREATE TABLE `matching_game`(
     user_ID INT NOT NULL,
     MG_game_ID INT PRIMARY KEY AUTO_INCREMENT,
     MG_score INT,
-    tiles_turned_count INT,  -- Stores the tile IDs (e.g., [1, 2, 3]) instead of file paths
-    tile_placement JSON, -- Stores the tile placements (e.g., [1, 4, 2])
+    tiles_turned_count INT, 
+    full_tile_state JSON, 
     time_elapsed INT,      -- Time limit in seconds
     last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     difficulty ENUM('Easy', 'Medium', 'Hard'),
@@ -55,41 +55,6 @@ CREATE TABLE `code_breaker`(
     -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-DELIMITER $$
-
-CREATE TRIGGER update_MG_highest_score
-AFTER INSERT ON matching_game
-FOR EACH ROW
-BEGIN
-    IF (SELECT MG_highest_score FROM user WHERE user_ID = NEW.user_ID) IS NULL
-        OR NEW.MG_score > (SELECT MG_highest_score FROM user WHERE user_ID = NEW.user_ID) THEN
-        UPDATE user
-        SET MG_highest_score = NEW.MG_score
-        WHERE user_ID = NEW.user_ID;
-    END IF;
-END $$
-
-DELIMITER ;
-
-DELIMITER $$
-
-CREATE TRIGGER update_CB_highest_score
-AFTER INSERT ON code_breaker
-FOR EACH ROW
-BEGIN
-    IF (SELECT CB_highest_score FROM user WHERE user_ID = NEW.user_ID) IS NULL
-        OR NEW.CB_score > (SELECT CB_highest_score FROM user WHERE user_ID = NEW.user_ID) THEN
-        UPDATE user
-        SET CB_highest_score = NEW.CB_score
-        WHERE user_ID = NEW.user_ID;
-    END IF;
-END $$
-
-DELIMITER ;
-
-
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
