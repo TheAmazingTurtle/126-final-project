@@ -24,12 +24,12 @@ body, html {
     position: relative;
     overflow: hidden;
 
-    background-size: cover;        /* Ensures image covers the whole container */
-    background-position: center;   /* Centers the image */
+    background-size: cover;        
+    /* background-position: center;    */
     background-repeat: no-repeat;
 
 
-    font-size: calc(1vw + 1vh);
+    /* font-size: calc(1vw + 1vh); */
     
 
 }
@@ -41,7 +41,8 @@ body, html {
 }
 
 .game1-page #aspect-ratio-wrapper {
-    background-image: url("assets/images/game-screen-background.jpg");
+    /* background-image: url("assets/images/game-screen-background.jpg"); */
+    background-image: url("assets/images/game-screen-background-darker.png");
 }
 
 .game2-page #aspect-ratio-wrapper {
@@ -61,7 +62,6 @@ body, html {
 
 header {
     height: 8%;
-    /* background-color: yellow; */
     margin: 0;
     padding: 0 2%;
     display: flex;
@@ -71,20 +71,34 @@ header {
     #game-logo {
         width: 4%;
         height: auto;
+        
+        position: relative;
+        margin-top: 2%;
     }
 
     nav {
         display: flex;
+        justify-content: flex-end;
+        align-items: center;
         width: 8%;
-        justify-content: space-between;
-        flex-direction: row;
+        margin-top: 2%;
+        height: 100%;
+        position: relative;
+
+        a {
+            margin: 1vh 0 0 2vw;
+        }
     }
+    
+
+
 
     nav img{
-        max-width: 2vw;
+        width: 3.5vw;
         height: auto;
         cursor: pointer;
     }
+
 }
 
 
@@ -137,7 +151,7 @@ main {
 
     #leaderboard-house {
         /* border: 1px black solid; */
-        width: 15%;
+        width: 20%;
         position: absolute;
         bottom: 28%;
         right: 4.5%;
@@ -201,15 +215,18 @@ main {
             letter-spacing:0.1em;
 
 
+            background-color: hsl(0, 58%, 62%, 0.7);
+            border: hsl(0, 59%, 41%, 0.8) 10px solid;
+            border-radius: 25% 0% 0 0;
+
+
             font-family: 'Comic Neue', cursive;
-            text-shadow: 
-                #FFF 0 0 5px,
-                #FFE0B2 0 0 10px,
-                #FFAB91 0 0 20px,
-                #FF6F61 0 0 30px;
-            
+            text-shadow:#FFF 0 0 5px, #FFE0B2 0 0 10px,#FFAB91 0 0 20px, #FF6F61 0 0 30px;
+            box-shadow: black -3px 3px 3px, rgb(0, 0, 0) -3px 3px 5px, black -3px 3px 10px, black -3px 3px 20px;
             color: #FFFFFF;
         }
+
+
             #game1-time-container {
                 position: absolute;
                 top: 0;
@@ -223,7 +240,7 @@ main {
                 
 
                 
-                font-size: 2vh;
+                font-size: 1.15vw;
                 text-align: center;
                 box-sizing: border-box;
 
@@ -234,21 +251,26 @@ main {
                     font-weight: bold;
                     font-size: 2em;
                     margin-bottom: 2%;
+                    padding-bottom: 2%;
+                    border-bottom: brown 5px solid;
+
                 }
 
                 #game1-time {
-                    font-size: 1.5em;
+                    font-size: 2em;
+                    
 
                 }
 
 
             
             }
+
+
         
             #timerGlassHour {
                 width: 80%;
                 height: 30%;
-
 
                 position: absolute;
                 top: 25%;
@@ -260,26 +282,31 @@ main {
                 animation-iteration-count: infinite; 
                 
             }
-
             
-
-
-
 
             #powerUpJar {
                 width: 90%;
-                height: 40%;
-
+                height: 38%;
 
                 position: absolute;
                 left: 5%;
-                bottom: 0;
+                bottom: 2%;
 
                 animation-name: rotatingGlass;
                 animation-duration: 2s;
                 animation-timing-function: linear;
                 animation-iteration-count: infinite; 
             }
+
+                
+                #hrAbovePowerUpJar {
+                    position: absolute;
+                    bottom: 40%;
+                    width: 100%;
+                    height: 1%;
+                    background-color: brown; 
+                    border: none;
+                } 
 
         #game1-center {
             height: 100%;
@@ -288,6 +315,9 @@ main {
             flex-direction: column;
             border: #000000 2px solid;
             border-radius: 5%;
+            z-index: 2;
+
+            box-shadow: black 0 0 3px, rgb(0, 0, 0) 0 0 5px, black 0 0 10px, black 0 0 20px;
         }
             #game1-matrix-container {
                 width: 100%;
@@ -299,7 +329,7 @@ main {
 
                 #game1-tile-matrix {
                     background-color: hsl(211, 69%, 20%, 0.5);
-                    border-radius: 5%;
+                    border-radius: 5% 5% 0 0;
 
                     border-collapse: collapse;
                     border-spacing: 0;
@@ -322,7 +352,8 @@ main {
                     border: none;
                     display: flex;
                     justify-content: space-evenly;
-                    align-items: center;      
+                    align-items: center;    
+                      
                 }
                     .tile {
                         perspective: 1000px; /* Adds 3D effect */
@@ -349,6 +380,8 @@ main {
                     }
 
                     .tile-front img, .tile-back img {
+                        
+                        border-radius: 15%;
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
@@ -364,6 +397,7 @@ main {
                 align-items: center;
                 width: 100%;
                 height: 10%;
+                border-radius: 0 0 40% 40%;
             }
 
             #game1-stat-container {
@@ -391,7 +425,7 @@ main {
             }
 
             #game1-stat-container h4 {
-                font-size: 1vw;
+                font-size: 1.2vw;
                 text-align: right;
                 color: rgb(223, 223, 223);
                 text-shadow: #000000 0 0 1px, #000000 0 0 3px, #000000 0 0 5px, #000000 0 0 10px;
@@ -408,6 +442,12 @@ main {
             align-items: center;
             position: relative;
             right: -1%;
+
+            
+            background-color: hsl(0, 58%, 62%, 0.7);
+            border: hsl(0, 59%, 41%, 0.8) 10px solid;
+            border-radius: 0% 20% 0 0;
+            box-shadow: black 3px 3px 3px, rgb(0, 0, 0) 3px 3px 5px, black 3px 3px 10px, black 3px 3px 20px;
         }
             #game1-dialogue-container{
                 height: 38%;
@@ -415,11 +455,11 @@ main {
                 background-color: #c25349;
                 border-radius: 5%; 
                 box-shadow: 0 0 1px 3px #FFF, 0 0 1px 5px #FFE0B2, 0 0 3px 7px #FFAB91, 0 0 5px 10px #FF6F61;
-                display: flex;
-                flex-direction: column;
-                text-align: center;
+                /* display: flex; */
+                /* flex-direction: column; */
+                /* text-align: center; */
 
-                
+    
                 background-image: url("assets/images/Matching Game Tutorial.png");
                 background-size: contain;      
                 background-position: center;   
@@ -434,11 +474,23 @@ main {
             }
 
             #game1-mascot {
+                position: relative;
+                top: 2.5%;
                 width: 80%;
                 height: 46%;
             }
 
-    
+                #hrAboveMascot {
+                    position: absolute;
+                    bottom: 50%;
+                    width: 100%;
+                    height: 1%;
+                    background-color: brown;
+                    border: none;
+                }
+
+
+
     .game2-content {
         height: 95%;
         width: 100%;
@@ -470,14 +522,18 @@ main {
 
                 #game2-status {
                     position: absolute;
-                    background-color: white;
+                    background-color: rgb(51, 114, 114);
+                    border: 6px rgb(107, 16, 16) solid;
                     text-align: center;
                     font-size: 1vw; 
-                    width: 48%;
+                    width: 43%;
                     height: 10%;
                     top: 5%;
-                    left: 45%;
+                    right: 6.5%;
                     padding: 1%;
+                    color: white;
+                    
+                    
 
                 }
                     #status {
@@ -497,12 +553,14 @@ main {
 
                 #game2-tutorial-container{
                     height: 55%;
-                    width: 33%;
+                    width: 31.5%;
                     position: absolute;
                     bottom: 5%;
                     left: 5%;
+                    background-color: hsl(0, 74%, 24%);
 
-                    box-shadow: 0 0 1px 1px #FFF, 0 0 1px 2px #FFE0B2, 0 0 3px 3px #FFAB91, 0 0 5px 5px #FF6F61;
+                    /* box-shadow: 0 0 1px 1px #FFF, 0 0 1px 2px #FFE0B2, 0 0 3px 3px #FFAB91, 0 0 5px 5px #FF6F61; */
+                    border: 5px hsl(0, 74%, 24%) solid;
                     background-image: url("assets/images/Wordle Tutorial.png");
                     background-size: contain;      
                     background-position: center;   
@@ -567,7 +625,7 @@ main {
                     background-color:  hsl(0, 59%, 41%, 0.5);
                     position: absolute;
                     top: 5%;
-                    left:9%;
+                    left:10%;
 
                     display: grid;
                     grid-template-columns: 1fr 1fr; /* 2 columns */
@@ -621,12 +679,11 @@ main {
 
 
                 #game2-cabinet table{
-                    width: 100%;
-                    height: 90%;
+                    /* width: 100%;
+                    height: 90%; */
                     border-collapse: collapse;
-                    /* border: none; */
                     
-                    border-radius: 5%;
+                    /* border-radius: 5%; */
 
                 }
 
@@ -777,11 +834,9 @@ main {
 
 
             #game2-attempt-container > div{
-                /* border: 1px solid yellow; */
-                /* background-color: white; */
                 background-image: url("assets/images/Takeout box closed.png");
-                background-size: cover;        /* Ensures image covers the whole container */
-                background-position: center;   /* Centers the image */
+                background-size: cover;        
+                background-position: center;   
                 background-repeat: no-repeat;
                 width: 12.5%;
                 height: 80%;
@@ -895,15 +950,26 @@ main {
             flex-direction: row;
             justify-content: space-evenly;
             align-items: center;
+
         }
 
             #leaderboard-switch-button-container button {
                 height: 60%;
                 width: 40%;
                 font-weight: bold;
-                font-size: 0.5vw;
+                font-size: 1vw;
                 cursor: pointer;
                 border-radius: 0.5vh;
+                box-shadow: 2px 2px 1px black, 2px 2px 3px black, 3px 3px 5px black, 4px 4px 10px black;
+                transition: transform 0.3s ease-in-out, background-color 0.3s, color 0.3s;
+            }
+
+            #leaderboard-switch-button-container button:hover {
+                background-color: #1c80d1;
+                color: white;
+                transform: scale(1.3);
+                
+                font-size: 1.5vw;
             }
 
     /* Table container */
@@ -973,7 +1039,9 @@ main {
             display: flex;
             justify-content: center;
             align-items: center;
+            
         }
+
 
             #leaderboard-table-container input[type="radio"] {
                 display: none;
@@ -985,7 +1053,9 @@ main {
 
             #leaderboard-table-container table{
                 width: 90%;
-                height: 90%;
+                height: 95%;
+
+                    
             }
 
             #leaderboard-table-container tbody{
@@ -1002,13 +1072,20 @@ main {
                 font-size: 1vw;
             }
 
-            #game1-board{
-                background-color: rgba(255, 0, 0, 0.5);
+            #game1-board, #game2-board {
+                color: white;
+                padding: 2%;
+                border: 15px rgb(107, 16, 16) solid !important;
+                border-radius: 2%;
             }
 
-            #game2-board{
-                background-color: rgb(0, 128, 0, 0.5);
-            }
+                #game1-board{
+                    background-color: rgba(255, 93, 18, 0.5);
+                }
+
+                #game2-board{
+                    background-color: rgba(165, 43, 5, 0.5);
+                }
 
 #horizontal-line {
     position: absolute;
@@ -1034,7 +1111,10 @@ footer {
 footer p {
     margin: 0;
     padding: 0;
-    font-size: 50%;
+    font-size: 1.2vw;
+    margin-bottom: 1%;
+    color: white;
+    text-shadow: #000000 0 0 1px, #FFE0B2 0 0 3px, #000000 0 0 5px, #FF6F61 0 0 10px, #000000 0 0 15px, #fd5546 0 0 20px;
 }
 
 
@@ -1262,29 +1342,51 @@ footer p {
                 }
 
                 10% {
-                    transform: rotate(0deg); /* pause */
+                    transform: rotate(0deg); 
                 }
 
                 30% {
-                    transform: rotate(30deg); /* speeding up */
+                    transform: rotate(30deg); 
                 }
 
                 50% {
-                    transform: rotate(90deg); /* full flip */
+                    transform: rotate(90deg); 
                 }
 
                 70% {
-                    transform: rotate(150deg); /* speeding up */
+                    transform: rotate(150deg); 
                 }
 
                 90% {
-                    transform: rotate(180eg); /* slowing down */
+                    transform: rotate(180eg); 
                 }
 
                 100% {
-                    transform: rotate(180deg); /* pause */
+                    transform: rotate(180deg); 
                 }
             }
+
+    #blackBackground_forGameHouses {  
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgb(0, 0, 0, 0.7);
+        z-index: -1;
+
+
+        padding: 0%;
+        margin: 0%;
+        opacity: 100;
+
+
+
+        /* animation-name: whiteFadeOut_Shrink;
+        animation-duration: 2s;
+        animation-timing-function: ease-out;
+        animation-fill-mode: forwards;  */
+    }
 
 
 
@@ -1394,15 +1496,27 @@ footer p {
     background: #41add8;
     overflow: hidden;
 }
-.background li {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.2);
-    animation: animate 10s linear infinite;
-}
+    .background li {
+        position: absolute;
+        display: block;
+        list-style: none;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        animation: animate 15s linear infinite;
+
+        background-size: cover;       
+        background-position: center;  
+        background-repeat: no-repeat;
+    }
+
+    .background li img {
+        width: 100%; 
+        height: 100%; 
+        object-fit: cover;
+        border-radius: 10%;
+    }
+
 
 
 
@@ -1422,60 +1536,60 @@ footer p {
     animation-delay: 1s;
 }
 .background li:nth-child(2) {
-    left: 72%;
+    left: 79%;
     width: 190px;
     height: 190px;
     bottom: -190px;
-    animation-delay: 10s;
+    animation-delay: 23s;
 }
 .background li:nth-child(3) {
-    left: 43%;
+    left: 45%;
     width: 126px;
     height: 126px;
     bottom: -126px;
-    animation-delay: 15s;
+    animation-delay: 7s;
 }
 .background li:nth-child(4) {
     left: 2%;
-    width: 114px;
-    height: 114px;
-    bottom: -114px;
-    animation-delay: 8s;
+    width: 200px;
+    height: 200px;
+    bottom: -200px;
+    animation-delay: 1s;
 }
 .background li:nth-child(5) {
-    left: 47%;
+    left: 53%;
     width: 118px;
     height: 118px;
     bottom: -118px;
-    animation-delay: 24s;
+    animation-delay: 15s;
 }
 .background li:nth-child(6) {
-    left: 61%;
+    left: 32%;
     width: 101px;
     height: 101px;
     bottom: -101px;
-    animation-delay: 8s;
+    animation-delay: 10s;
 }
 .background li:nth-child(7) {
-    left: 46%;
+    left: 40%;
     width: 150px;
     height: 150px;
     bottom: -150px;
-    animation-delay: 35s;
+    animation-delay: 15s;
 }
 .background li:nth-child(8) {
     left: 23%;
-    width: 109px;
-    height: 109px;
-    bottom: -109px;
-    animation-delay: 22s;
+    width: 150px;
+    height: 150px;
+    bottom: -150px;
+    animation-delay: 20s;
 }
 .background li:nth-child(9) {
     left: 62%;
     width: 138px;
     height: 138px;
     bottom: -138px;
-    animation-delay: 25s;
+    animation-delay: 20s;
 }
 
 
@@ -1496,84 +1610,100 @@ footer p {
 
 
 
-#game1-end-card {
+#game1-end-card, #game2-end-card {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: maroon;
+    background-color: rgb(216, 62, 62);
     width: 30%;
     height: 40%;
 
     display: none;
-    justify-content: center;
+    justify-content:baseline;
     align-items: center;
     flex-direction: column;
+    font-family:'Comic Neue', cursive;
+    font-size: 1vh;
+
+    box-shadow: 0 0 1px 3px #FFF, 0 0 1px 5px #FFE0B2, 0 0 3px 7px #FFAB91, 0 0 5px 10px #FF6F61;
+    text-shadow: black 1px 1px 2px, white 0 0 5px, black 0 0 10px, white 0 0 13px, black 0 0 15px;
 
     
-    z-index: 1000;
-}
-
-#game2-end-card {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: darkgreen;
-    width: 30%;
-    height: 40%;
-
-    display: none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    font-size: 50%;
-
-    
-    z-index: 1000;
-}
-
-.end-card-stats {
-    text-align: left;
-    margin-bottom: 20px;
-
-}
-
-.end-card-stats p {
-    margin: 6px 0;
-}
-
-.end-card-buttons {
-    width: 60%;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.button-link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    aspect-ratio: 1 / 1;
-    width: 20%;
-    border-radius: 100%;
-    background-color: #007BFF;
+    border-radius: 10%;
+    border: brown 10px solid;
     color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+
+    
+    z-index: 1000;
+
+    h2 {
+        font-size: 5em;
+        position: absolute;
+        top: 5%;
+    } 
+
+    .end-card-stats {
+        font-size: 2em;
+    }
+
+    p {
+       letter-spacing: 2px;
+    }
 }
 
-.button-link img {
-    width: 60%;
-    height: 60%;
-}
+    .end-card-stats {
+        text-align: left;
+        position: absolute;
+        top: 35%;
 
-.button-link:hover {
-    background-color: #0056b3;
-}
+    }
+
+    .end-card-stats p {
+        margin: 6px 0;
+    }
+
+    .end-card-buttons {
+        width: 60%;
+
+        display: flex;
+        position: absolute;
+        top: 75%;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        img {
+            height: 100%;
+        }
+    }
+
+        .button-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            aspect-ratio: 1 / 1;
+            width: 20%;
+            border-radius: 100%;
+            background-color: #ffffff;
+            color: white;
+            text-decoration: none;
+            transition: ease-in-out background-color 0.3s, transform 0.3s ;
+        }
+
+            .button-link img {
+                width: 100%;
+                height: 80%;
+                /* background-color: #000000; */
+                border-radius: 100%;
+            }
+
+            .button-link:hover {
+                background-color: rgb(136, 26, 26);
+                transform: scale(1.3);
+
+            }
 
 
 

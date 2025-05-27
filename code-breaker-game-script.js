@@ -253,6 +253,8 @@ function endGame(win){
     const dessertCorrectImg = document.createElement('img');
     dessertCorrectImg.src = "assets/cabinet/dessert-" + correctValues[3] + ".png";
     document.getElementById("dessert-correct").appendChild(dessertCorrectImg);
+    
+    document.getElementById('blackBackground_forGameHouses').style.zIndex = '10';
 
 
     

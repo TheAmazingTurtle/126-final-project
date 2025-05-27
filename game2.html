@@ -10,23 +10,24 @@
     <div id="aspect-ratio-wrapper">
         <div id="game-container">
             <div id="game2-end-card">
-                <h2 id="game2-result">Game Over</h2>
+                <h2 id="game2-result">You Win!</h2>
                 <div class="end-card-stats">
-                    <p><strong>Number of Attempts:</strong> <span id="attempts-end-card">0</span></p>
+                    <p><strong># of Attempts:</strong> <span id="attempts-end-card">0</span></p>
                     <p><strong>Difficulty:</strong> <span id="difficulty-end-card">Easy</span></p>
                 </div>
                 <div class="end-card-buttons">
                     <a href="home.html" class="button-link">
-                        <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home Button">
+                        <img src="assets/images/homeIcon.png" alt="Home Button">
                     </a>
-                    <a href="game2.html" class="button-link" onclick="playAgain()">
-                        <img src="" alt="Restart Button">
+                    <a href="game1.html" class="button-link" onclick="playAgain()">
+                        <img src="assets/images/restartIcon.png" alt="Restart Button">
                     </a>
                     <a href="leaderboard.html" class="button-link">
-                        <img src="" alt="Trophy Button">
+                        <img src="assets/images/trophyIcon.png" alt="Trophy Button">
                     </a>
                 </div>
             </div>
+
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
 
@@ -38,6 +39,7 @@
                         <img src="assets/images/trophyIcon.png" alt="Leaderboard">
                     </a>
                 </nav>
+                
             </header>
             <main>
                 <div class="game2-content">
@@ -63,19 +65,19 @@
                             <div id="correct-order">
 
                                 <div id="fruit-correct">
-                                    <img src="assets/images/tile.png">
+                                    <img src="assets/images/tile.png" style="opacity: 0.5;">
                                 </div>
 
                                 <div id="main-correct">
-                                    <img src="assets/images/tile.png">
+                                    <img src="assets/images/tile.png"  style="opacity: 0.5;">
                                 </div>
 
                                 <div id="drink-correct">
-                                    <img src="assets/images/tile.png">
+                                    <img src="assets/images/tile.png"  style="opacity: 0.5;">
                                 </div>
 
                                 <div id="dessert-correct">
-                                    <img src="assets/images/tile.png">
+                                    <img src="assets/images/tile.png"  style="opacity: 0.5;">
                                 </div>
                             </div>
 
@@ -230,9 +232,10 @@
                 <p> @2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
             </footer>
         </div>
-<!-- 
-        <div id="blackBackground"></div>
-        <div id="whiteFadeIn_game"></div> -->
+
+        <!-- <div id="blackBackground"></div> -->
+        <div id="whiteFadeIn_game"></div>
+        <div id="blackBackground_forGameHouses"></div>
     </div>
     
     <script src="code-breaker-game-script.js"></script>

@@ -198,7 +198,9 @@ function endGame(){
     document.getElementById('tiles-flipped-end-card').innerHTML = numOfTilesFlipped;
     document.getElementById('elapsed-time-end-card').innerHTML = getTextFormTimeElapse();
     document.getElementById('score-end-card').innerHTML = score;
-    document.getElementById('difficulty-end-card').innerHTML = difficulty;
+    document.getElementById('difficulty-end-card').innerHTML = difficulty;y
+    document.getElementById('blackBackground_forGameHouses').style.zIndex = '10';
+
 }
 
 function adjustTileMatrix() {
