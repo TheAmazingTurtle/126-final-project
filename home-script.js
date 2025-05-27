@@ -129,8 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
 
       const formData = new FormData(this);
-      // You should actually send login data here (AJAX fetch) instead of faking login
-      // For now, simulate login success:
       fetch('login.php',{
         method:'POST',
         body: formData,

@@ -45,6 +45,9 @@ function shuffleArray(array) {
 }
 
 function generateRandomTileValues() {
+    tileValues.length = 0;
+    isTileActive.length = 0;
+
     const totalTiles = numRows * numCols;
     const pairs = Math.floor(totalTiles / 2);
 
@@ -161,8 +164,14 @@ function manageFlipEvent() {
 
     if (tileValues[tile1Id] === tileValues[tile2Id]) {
         // Match
-        isTileActive[tile1Id] = false;
-        isTileActive[tile2Id] = false;
+
+        const row1 = Math.floor(tile1Id / numCols);
+        const col1 = tile1Id % numCols;
+        const row2 = Math.floor(tile2Id / numCols);
+        const col2 = tile2Id % numCols;
+
+        isTileActive[row1][col1] = false;
+        isTileActive[row2][col2] = false;
 
         tile1.style.visibility = 'hidden';
         tile2.style.visibility = 'hidden';
@@ -252,6 +261,72 @@ function getTextFormTimeElapse(){
     return `${minutes}:${secondsText}`;
 }
 
+function buildFullTileState(){
+    const fullTileState = [];
+
+    for (let i = 0; i < totalCards ; i++){
+        const tile = document.getElementById(i);
+        const row = Math.floor(i/numCols);
+        const col = i % numCols;
+
+        fullTileState.push({
+          tileID: i,
+          value: tileValues[i],
+          flipped: tile?.classList.contains('flipped') || false,
+          active: tile?.style.visibility !== 'hidden'
+
+        });
+    }
+    return fullTileState;
+}
+
+function retrieveFullTileState(fullTileState){
+    tileValues.length = 0;
+    isTileActive.length = 0;
+
+
+    for (let i = 0; i < numRows; i++){
+      isTileActive[i] = new Array(numCols).fill(true);
+    }
+
+
+    fullTileState.forEach(tile => {
+      tileValues[tile.tileID] = tile.value;
+      const row = Math.floor(tile.tileID / numCols);
+      const col = tile.tileID % numCols;
+    isTileActive[row][col] = tile.active;
+    });
+
+
+    generateTileMatrix();
+
+    for(let i = 0; i < totalCards; i++){
+      const row = Math.floor(i / numCols);
+      const col = i % numCols;
+      const tileElement = document.getElementById(i);
+      if(tileElement){
+        if(isTileActive[row][col]){
+          tileElement.classList.remove('hidden');
+        } else {
+          tileElement.classList.add('hidden');
+        }
+      }
+    }
+
+    setTimeout(() => {
+      fullTileState.forEach(tile => {
+        const row = Math.floor(tile.tileID / numCols);
+        const col = tile.tileID % numCols;
+
+        // Flip only if tile is active and marked flipped in saved state
+        if (tile.flipped && isTileActive[row][col]) {
+          const flippedTile = document.getElementById(tile.tileID);
+          if (flippedTile) flippedTile.classList.add("flipped");
+        }
+      });
+    }, 50);
+}
+
 function MG_saveGameState(){
     console.log("Current User ID: ", currentUserID); // Add 
     console.log("Saving game state...");
@@ -265,16 +340,13 @@ function MG_saveGameState(){
     console.log("Game is being tracked.");
     console.log("Current User ID:", currentUserID);
     console.log("Score:", score);
-    console.log("Tiles Flipped:", numOfTilesFlipped);
-    console.log("Tile Values:", tileValues);
-    console.log("Time Elapsed:", secondsElapse);
-    console.log("Difficulty:", difficulty);
+    console.log("Full Tile States:", buildFullTileState());
 
     const MG_gameState = {
         user_ID: currentUserID,
         MG_score: score,
         tiles_turned_count: numOfTilesFlipped,
-        tile_placement: JSON.stringify(tileValues),
+        full_tile_state: JSON.stringify(buildFullTileState()),
         time_elapsed: secondsElapse,
         last_time_accessed: new Date().toISOString(),
         difficulty: difficulty,
@@ -303,37 +375,77 @@ function MG_saveGameState(){
     });
 }
 
+function MG_loadGameState() {
+  console.log("MG_loadGameState: Starting to load game state...");
+  isLoadingGame = true;
+  return fetch("game1_load_state.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ user_ID: currentUserID })
+  })
+  .then(response => {
+    console.log("MG_loadGameState: Received response from server.");
+    return response.json();
+  })
+  .then(data => {
+    console.log("MG_loadGameState: Parsed JSON data:", data);
+    
+    if (!data.success) {
+      console.error("MG_loadGameState: Failed to load game state:", data.message);
+      isLoadingGame = false;
+      return false;
+    }
+
+    // Restore variables
+    score = data.MG_score;
+    numOfTilesFlipped = data.tiles_turned_count;
+    secondsElapse = data.time_elapsed;
+    difficulty = data.difficulty;
+    
+    console.log("MG_loadGameState: Restored variables:", {
+      score,
+      numOfTilesFlipped,
+      secondsElapse,
+      difficulty
+    });
+
+    console.log("MG_loadGameState: Called generateTileMatrix()");
+
+    const fullTileState = JSON.parse(data.full_tile_state);
+    console.log("MG_loadGameState: Parsed fullTileState:", fullTileState);
+
+    retrieveFullTileState(fullTileState);
+    console.log("MG_loadGameState: Called retrieveFullTileState()");
+
+    refreshStats();
+    console.log("MG_loadGameState: Called refreshStats()");
+
+    isLoadingGame = false;
+    console.log("MG_loadGameState: Finished loading game state successfully.");
+    return true;
+  })
+  .catch(error => {
+    console.error("MG_loadGameState: Error loading game:", error);
+    isLoadingGame = false;
+    return false;
+  });
+}
+
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "s") {
     console.log("Manual save triggered with S key");
     MG_saveGameState();
+  } else if (e.key==='l'){
+    console.log("Manual load triggered with L key");
+    MG_loadGameState();
   }
+
+
+
 });
 
 
-function MG_loadGameState(){
-    console.log("Current User ID: ", currentUserID); // Add 
-    console.log("Loading game state...");
-    console.log("Game is being loaded.");
 
-    fetch('game1_load_state.php')
-        .then(response=>response.json())
-        .then(data=> {
-            if(data.success){
-                score = data.MG_score;
-                numOfTilesFlipped = data.tiles_turned_count;
-                tileValues.length = 0;
-                tileValues.push(...JSON.parse(data.tile.placement));
-                secondsElapse = data.time_elapsed;
-                difficulty = data.difficulty;
-
-                generateTileMatrix;
-                refreshStats();
-                
-            }else if(data.message === "Not logged in"){
-                window.location.href = "login.php";
-            }
-
-        })
-
-}

@@ -24,7 +24,7 @@ if (!$data){
 
 $score = $data['MG_score'] ?? 0;
 $tiles_turned = $data['tiles_turned_count'] ?? 0;
-$tile_placement = $data['tile_placement'] ?? '[]';
+$full_tile_state = $data['full_tile_state'] ?? '[]';
 $time_elapsed = $data['time_elapsed'] ?? 0;
 $difficulty = $data['difficulty'] ?? 'Easy';
 
@@ -47,27 +47,43 @@ $difficulty = $data['difficulty'] ?? 'Easy';
             "UPDATE matching_game
                 SET MG_score = ?,
                     tiles_turned_count = ?,
-                    tile_placement = ?,
+                    full_tile_state = ?,
                     time_elapsed = ?,
                     difficulty = ?
               WHERE user_ID = ?");
+
         // $update_stmt-> execute([$score, $tiles_turned, $tile_placement, $time_elapsed, $difficulty, $user_ID]);
     
     if (!$update_stmt) {
         echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
         exit;
     }
-        $update_stmt->bind_param('iisisi', $score, $tiles_turned, $tile_placement, $time_elapsed, $difficulty, $user_ID);
+        $update_stmt->bind_param('iisisi', $score, $tiles_turned, $full_tile_state, $time_elapsed, $difficulty, $user_ID);
         $executed = $update_stmt->execute();
         $update_stmt->close();
 
         if ($executed) {
-        echo json_encode(['success' => true, 'message' => 'Progress rewritten!']);
+            $current_mg_high_score = $conn->query("SELECT MG_highest_score FROM user WHERE user_ID = $user_ID");
+            if($current_mg_high_score){
+                $row = $current_mg_high_score->fetch_assoc();
+                $new_highest = $row['MG_highest_score']?? 0;
+                if($score > $new_highest){
+                    $update_MG_high_score = $conn->prepare("UPDATE user SET MG_highest_score = ? WHERE user_ID = ?");
+                    if($update_MG_high_score){
+                        $update_MG_high_score->bind_param('ii', $score, $user_ID);
+                        $update_MG_high_score->execute();
+                        $update_MG_high_score->close();
+                    }
+                }
+            } 
+            
+          
+
+            echo json_encode(['success' => true, 'message' => 'Progress rewritten!']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Update failed: ' . $conn->error]);
         }
         
-
     } else{
         $stmt-> close();
         $insert_stmt = $conn->prepare(
@@ -75,7 +91,7 @@ $difficulty = $data['difficulty'] ?? 'Easy';
                     (user_ID,
                     MG_score,
                     tiles_turned_count,
-                    tile_placement,
+                    full_tile_state,
                     time_elapsed,
                     difficulty)
              VALUES(?,?,?,?,?,?)");
@@ -83,7 +99,7 @@ $difficulty = $data['difficulty'] ?? 'Easy';
         echo json_encode(['success' => false, 'message' => 'Prepare failed: ' . $conn->error]);
         exit;
     }
-    $insert_stmt->bind_param('iiisis', $user_ID, $score, $tiles_turned, $tile_placement, $time_elapsed, $difficulty);
+    $insert_stmt->bind_param('iiisis', $user_ID, $score, $tiles_turned, $full_tile_state, $time_elapsed, $difficulty);
     $executed = $insert_stmt->execute();
     $insert_stmt->close();
 
