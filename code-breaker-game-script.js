@@ -178,9 +178,9 @@ function evaluateGuess() {
     // for background ~ open take out box
     // const openTakeOutBox = document.createElement('img'); 
     // openTakeOutBox.src = "assets/cabinet/Takeout box open back.png";
-    document.getElementById(`attempt-${attemptNum}`).style.backgroundImage = 'url("assets/images/Takeout box open back.png")';
-    document.getElementById(`attempt-${attemptNum}`).style.backgroundSize = 'cover';
-    document.getElementById(`attempt-${attemptNum}`).style.backgroundRepeat = 'no-repeat';
+    document.querySelector(`#attempt-${attemptNum} .attempt-image-container`).style.backgroundImage = 'url("assets/images/Takeout box open back.png")';
+    document.querySelector(`#attempt-${attemptNum} .attempt-image-container`).style.backgroundSize = 'cover';
+    document.querySelector(`#attempt-${attemptNum} .attempt-image-container`).style.backgroundRepeat = 'no-repeat';
 
 
     const fruitAttemptImg = document.createElement('img');
