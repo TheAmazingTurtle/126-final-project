@@ -2,8 +2,10 @@ const numGuessOptions = 4;
 const numGuessTypes = 4;
 let maxAttempts = 10;
 
-const correctValues = [];
-const attempts = []
+let correctValues = [];
+let attempts = []
+let guessesLeft = 0;
+let guessScore = 0;
 
 let attemptNum = 1;
 let difficulty = "Easy";
@@ -209,8 +211,8 @@ function evaluateGuess() {
     correctRowStatus.classList.add("attempt-hint-correct-row");
     document.getElementById(`attempt-${attemptNum}-hint`).appendChild(correctRowStatus);
 
-    let guessesLeft = maxAttempts - attemptNum;
-    let guessScore = correctGuess*10 + correctRow*5;
+    guessesLeft = maxAttempts - attemptNum;
+    guessScore = correctGuess*10 + correctRow*5;
     
     totalScore += guessScore;
     attemptNum++;
@@ -304,6 +306,64 @@ function storeAttempt(guessArray, correctGuessCount, correctRowCount, score){
     });
 }
 
+function restoreLoadedGuess(){
+    const guessFields = ['fruit', 'main', 'drink', 'dessert'];
+    guessFields.forEach(type => {
+        const container = document.getElementById(`${type}-guess`);
+        container.innerHTML = ""; // Clear old content if any
+
+        const value = currentIncompleteGuess[type];
+        if (value !== null) {
+            const img = document.createElement("img");
+            img.src = `assets/cabinet/${type}-${value}.png`;
+            container.appendChild(img);
+        }
+    });
+}
+
+function restoreLoadedAttempts() {
+    attempts.forEach((attempt, index) => {
+        const attemptIndex = index + 1;
+
+        // Set background
+        const container = document.querySelector(`#attempt-${attemptIndex} .attempt-image-container`);
+        container.style.backgroundImage = 'url("assets/images/Takeout box open back.png")';
+        container.style.backgroundSize = 'cover';
+        container.style.backgroundRepeat = 'no-repeat';
+
+        // Add images
+        ['fruit', 'main', 'drink', 'dessert'].forEach(type => {
+            const img = document.createElement("img");
+            img.src = `assets/cabinet/${type}-${attempt[type]}.png`;
+            document.getElementById(`${type}-attempt-${attemptIndex}`).appendChild(img);
+        });
+
+        // Add hint numbers
+        const hintContainer = document.getElementById(`attempt-${attemptIndex}-hint`);
+        hintContainer.innerHTML = ""; // Clear just in case
+
+        const correctGuessElem = document.createElement("h3");
+        correctGuessElem.textContent = attempt.correctGuessCount;
+        correctGuessElem.classList.add("attempt-hint-correct-guess");
+
+        const correctRowElem = document.createElement("h3");
+        correctRowElem.textContent = attempt.correctRowCount;
+        correctRowElem.classList.add("attempt-hint-correct-row");
+
+        hintContainer.appendChild(correctGuessElem);
+        hintContainer.appendChild(correctRowElem);
+    });
+}
+
+function refreshStats(guessScore) {
+    let guessesLeft = maxAttempts - attemptNum;
+
+    document.getElementById('game2-guess-score').innerHTML = `GUESS SCORE: ${guessScore}`;
+    document.getElementById('game2-difficulty').innerHTML = `DIFFICULTY: ${difficulty}`;
+    document.getElementById('game2-guesses-left').textContent = `GUESSES LEFT: ${guessesLeft}`;
+    document.getElementById('game2-total-score').textContent = `TOTAL SCORE: ${totalScore}`;
+}
+
 function CB_saveGameState(){
     console.log("Current User ID: ", currentUserID); // Add 
     console.log("Saving game state...");
@@ -355,12 +415,10 @@ function CB_saveGameState(){
 }
 
 function CB_loadGameState() {
-    maxAttempts - attempts.length;
-    attemptNum = attempts.length + 1;
-  
+
     console.log("CB_loadGameState: Starting to load game state...");
-  isLoadingGame = true;
-  return fetch("game2_load_state.php", {
+    isLoadingGame = true;
+    return fetch("game2_load_state.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -381,8 +439,10 @@ function CB_loadGameState() {
     }
 
     // Restore variables
-    score = data.CB_score;
-    
+    totalScore = data.CB_score;
+    correctValues = JSON.parse(data.correct_values);
+    currentIncompleteGuess = JSON.parse(data.current_incomplete_guess);
+    attempts = JSON.parse(data.array_attempts);
     difficulty = data.difficulty;
     
     console.log("CB_loadGameState: Restored variables:", {
@@ -393,24 +453,20 @@ function CB_loadGameState() {
       difficulty
     });
 
-    console.log("CB_loadGameState: Called generateTileMatrix()");
+    maxAttempts -= attempts.length;
+    attemptNum = attempts.length + 1;
 
-    const fullTileState = JSON.parse(data.full_tile_state);
-    console.log("CB_loadGameState: Parsed fullTileState:", fullTileState);
+    restoreLoadedGuess();
+    restoreLoadedAttempts();
+    refreshStats(guessScore);
 
-    retrieveFullTileState(fullTileState);
-    console.log("CB_loadGameState: Called retrieveFullTileState()");
-
-    refreshStats();
-    console.log("CB_loadGameState: Called refreshStats()");
-
-    isLoadingGame = false;
+    // isLoadingGame = false;
     console.log("CB_loadGameState: Finished loading game state successfully.");
     return true;
   })
   .catch(error => {
     console.error("CB_loadGameState: Error loading game:", error);
-    isLoadingGame = false;
+    // isLoadingGame = false;
     return false;
   });
 }
