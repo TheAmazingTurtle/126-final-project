@@ -3,9 +3,17 @@ const numGuessTypes = 4;
 const maxAttempts = 6;
 
 const correctValues = [];
+const attempts = []
 
 let attemptNum = 1;
 let difficulty = "Easy";
+let totalScore = 0;
+let currentIncompleteGuess = {
+    fruit: null,
+    main: null,
+    drink: null,
+    dessert: null
+};
 
 document.addEventListener("DOMContentLoaded", initializeGame);
 
@@ -66,23 +74,34 @@ function assignOnClickEventToImg(){
                 radio.checked = true;
             }
 
+            radio.checked = true;
+            const value = radio.value;
+
             let divGuessContainer;
             const img = document.createElement("img");
             img.src = choice.src;
             img.alt = choice.alt;
 
             if (choice.classList.contains("fruit")) {
-                divGuessContainer = document.getElementById("fruit-guess")
+                divGuessContainer = document.getElementById("fruit-guess");
+                currentIncompleteGuess.fruit = value;
             }
+            
             else if (choice.classList.contains("main")) {
-                divGuessContainer = document.getElementById("main-guess")
+                divGuessContainer = document.getElementById("main-guess");
+                currentIncompleteGuess.main = value;
             }
+
             else if (choice.classList.contains("drink")) {
-                divGuessContainer = document.getElementById("drink-guess")
+                divGuessContainer = document.getElementById("drink-guess");
+                currentIncompleteGuess.drink = value;
             }
+
             else if (choice.classList.contains("dessert")) {
-                divGuessContainer = document.getElementById("dessert-guess")
+                divGuessContainer = document.getElementById("dessert-guess");
+                currentIncompleteGuess.dessert = value;
             }
+
             else {
                 console.error("Unknown class for choice:", choice.classList);
                 return;
@@ -111,6 +130,13 @@ function resetGuess() {
     document.getElementById("main-guess").innerHTML = "";
     document.getElementById("drink-guess").innerHTML = "";
     document.getElementById("dessert-guess").innerHTML = "";
+
+    currentIncompleteGuess = {
+        fruit: null,
+        main: null,
+        drink: null,
+        dessert: null
+    };
 }
 
 function evaluateGuess() {
@@ -183,10 +209,19 @@ function evaluateGuess() {
     correctRowStatus.classList.add("attempt-hint-correct-row");
     document.getElementById(`attempt-${attemptNum}-hint`).appendChild(correctRowStatus);
 
+    let guessesLeft = maxAttempts - attemptNum;
+    let guessScore = correctGuess*10 + correctRow*5;
+    
+    totalScore += guessScore;
     attemptNum++;
-
+   
     document.getElementById("correct-guess-prompt").innerHTML = `Correct Guess: ${correctGuess}`;
     document.getElementById("correct-row-prompt").innerHTML = `Correct Row: ${correctRow}`;
+    document.getElementById('game2-guess-score').innerHTML = `GUESS SCORE: ${guessScore}`;
+    document.getElementById('game2-guesses-left').textContent = `GUESSES LEFT: ${guessesLeft}`;
+    document.getElementById('game2-total-score').textContent = `TOTAL SCORE: ${totalScore}`;
+   
+    storeAttempt(playerGuessValues, correctGuess, correctRow, guessScore);
 
     if (correctGuess == numGuessTypes ){
         endGame(true);
@@ -256,21 +291,139 @@ function endGame(win){
 
 }
 
-// function createGameState(){
-//     const gameState ={
-//         correctValues: [],
-//         userAttempts: [],
-//         currentAttempt: {
-//             guess: {
-//                 fruit: null,
-//                 main: null,
-//                 drink: null,
-//                 dessert: null, 
-//             },
-//             submitted: false;
-//         },
-//         cu
+function storeAttempt(guessArray, correctGuessCount, correctRowCount, score){
+    attempts.push({
+        fruit: guessArray[0],
+        main: guessArray[1],
+        drink: guessArray[2],
+        dessert : guessArray[3],
+        correctGuessCount :correctGuessCount,
+        correctRowCount: correctRowCount,
+        score: score
+    });
+}
+
+function CB_saveGameState(){
+    console.log("Current User ID: ", currentUserID); // Add 
+    console.log("Saving game state...");
+    console.log("Game is being tracked.");
+    if (typeof currentUserID === 'undefined' || currentUserID === null) {
+        console.error("Error: currentUserID is not set. Cannot save game state.");
+        return;
+    }
 
 
-//     }
-// }
+    console.log("Game is being tracked.");
+    console.log("Current User ID:", currentUserID);
+    console.log("Score:", totalScore);
+    console.log("Correct guess array", correctValues );
+    console.log("Current incomplete guess array", currentIncompleteGuess );
+    console.log("Attempts array", attempts);
+
+    const CB_gameState = {
+        user_ID: currentUserID,
+        CB_score: totalScore,
+        correct_values: JSON.stringify(correctValues),
+        current_incomplete_guess : JSON.stringify(currentIncompleteGuess),
+        array_attempts: JSON.stringify(attempts),
+        last_time_accessed: new Date().toISOString(),
+        difficulty: difficulty,
+    };
+
+    console.log("Game state to save:", CB_gameState);
+
+
+    fetch("game2_save_state.php", {
+        method: "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(CB_gameState)
+    })
+    .then(response=> {
+        console.log("Fetch response status:", response.status);  
+        return response.json()
+    })
+    .then(data=> {
+        console.log("Game saved successfully: ", data);
+    })
+
+    .catch(error=>{
+        console.error("Error saving game:", error);
+    });
+}
+
+function CB_loadGameState() {
+    maxAttempts - attempts.length;
+    attemptNum = attempts.length + 1;
+  
+    console.log("CB_loadGameState: Starting to load game state...");
+  isLoadingGame = true;
+  return fetch("game2_load_state.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ user_ID: currentUserID })
+  })
+  .then(response => {
+    console.log("CB_loadGameState: Received response from server.");
+    return response.json();
+  })
+  .then(data => {
+    console.log("CB_loadGameState: Parsed JSON data:", data);
+    
+    if (!data.success) {
+      console.error("CB_loadGameState: Failed to load game state:", data.message);
+      isLoadingGame = false;
+      return false;
+    }
+
+    // Restore variables
+    score = data.CB_score;
+    
+    difficulty = data.difficulty;
+    
+    console.log("CB_loadGameState: Restored variables:", {
+      totalScore,
+      correctValues,
+      currentIncompleteGuess,
+      attempts,
+      difficulty
+    });
+
+    console.log("CB_loadGameState: Called generateTileMatrix()");
+
+    const fullTileState = JSON.parse(data.full_tile_state);
+    console.log("CB_loadGameState: Parsed fullTileState:", fullTileState);
+
+    retrieveFullTileState(fullTileState);
+    console.log("CB_loadGameState: Called retrieveFullTileState()");
+
+    refreshStats();
+    console.log("CB_loadGameState: Called refreshStats()");
+
+    isLoadingGame = false;
+    console.log("CB_loadGameState: Finished loading game state successfully.");
+    return true;
+  })
+  .catch(error => {
+    console.error("CB_loadGameState: Error loading game:", error);
+    isLoadingGame = false;
+    return false;
+  });
+}
+
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "s") {
+    console.log("Manual save triggered with S key");
+    CB_saveGameState();
+  } else if (e.key==='l'){
+    console.log("Manual load triggered with L key");
+    CB_loadGameState();
+  }
+});
+
+
+

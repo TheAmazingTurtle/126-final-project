@@ -46,13 +46,11 @@ CREATE TABLE `code_breaker`(
     user_ID INT NULL,
     CB_game_ID INT PRIMARY KEY AUTO_INCREMENT,                    -- Unique identifier for the game                -- Username (foreign key relationship could be here)
     CB_score INT,
-    correct_guess INT,
-    correct_col INT,                       -- User's saved score for the game
-    guesses_left INT,                        -- Number of remaining attempts
-    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,                   -- Last time the game was accessed
-    attempts_combination JSON,                      -- JSON array of asset IDs for the correct combination
-    user_combination JSON,                         -- JSON array of asset IDs for the user's guessed combination
-    -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
+    correct_values JSON,
+    current_incomplete_guess JSON,                  
+    array_attempts JSON,                  
+    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,           -- Last time the game was accessed
+    difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

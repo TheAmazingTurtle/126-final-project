@@ -41,7 +41,9 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-game1-body">
-                                
+                                <?php 
+                                    include 'leaderboard_game1.php'
+                                ?>
                             </tbody>
                         </table>
 
@@ -56,7 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-game2-body">
-                                
+                                <?php 
+                                    include 'leaderboard_game2.php'
+                                ?>
                             </tbody>
                         </table>
                     </div>
