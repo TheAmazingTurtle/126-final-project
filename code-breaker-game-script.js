@@ -299,7 +299,7 @@ function endGame(win){
 
 }
 
-}
+
 
 function storeAttempt(guessArray, correctGuessCount, correctRowCount, score){
     attempts.push({
