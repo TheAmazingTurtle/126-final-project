@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>GITLOG GOURMET</title>
+</head>
+<body class="leaderboard-page">
+    <div id="aspect-ratio-wrapper">
+        <div id="game-container">
+
+            <header>
+                <img id="game-logo" src="assets/images/game-logo.png">
+
+                <nav>
+                    
+                    <a href="home.php">
+                        <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home">
+                    </a>
+                    <a href="home.php">
+                        <img src="https://img.freepik.com/free-psd/black-question-mark-painted-texture-3d-render-uncertainty-concept_632498-24351.jpg?semt=ais_hybrid&w=740" alt="Tutorial">
+                    </a>
+                </nav>
+            </header>
+            <main>
+                <div id="leaderboard-content">
+                    <div id="leaderboard-switch-button-container">
+                        <button id="leaderboard-game1-switch" onclick="selectBoard(1)">MATCHING PAIR</button>
+                        <button id="leaderboard-game2-switch" onclick="selectBoard(2)">CODE BREAKER</button>
+                    </div>
+                    <div id="leaderboard-table-container">
+                        <input type="radio" name="active-board" id='game1-radio' checked>
+                        <table id="game1-board">
+                            <thead>
+                                <tr>
+                                    <th>RANK</th>
+                                    <th>NAME</th>
+                                    <th>RATING</th>
+                                    <th>SCORE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-game1-body">
+                                <?php
+                                    include 'leaderboard_game1.php';
+                                ?>
+                            </tbody>
+                        </table>
+
+                        <input type="radio" name="active-board" id='game2-radio'>
+                        <table id="game2-board">
+                            <thead>
+                                <tr>
+                                    <th>RANK</th>
+                                    <th>NAME</th>
+                                    <th>RATING</th>
+                                    <th>SCORE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboard-game2-body">
+                                <?php
+                                    include 'leaderboard_game2.php';
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+
+            <hr id="horizontal-line">
+
+            <footer>
+                <p>@2025 Gitlog Gourmet Web App ~ The GITLOG. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <!-- <div id="home_leaderboard_transition"></div> -->
+
+        <div id="blackBackground"></div>
+        <div id="whiteFadeIn_game"></div>
+        <ul class="background">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+
+        
+
+    </div>
+    <script src="leaderboard-script.js"></script>
+</body>
+</html>
