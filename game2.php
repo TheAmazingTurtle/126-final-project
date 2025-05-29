@@ -37,7 +37,7 @@ $_SESSION['current_page'] = 'Game2';
                     <a href="game2.php" class="button-link" onclick="playAgain()">
                         <img src="" alt="Restart Button">
                     </a>
-                    <a href="leaderboard.html" class="button-link">
+                    <a href="leaderboard.php" class="button-link">
                         <img src="" alt="Trophy Button">
                     </a>
                 </div>
@@ -49,7 +49,7 @@ $_SESSION['current_page'] = 'Game2';
                     <a href="home.php">
                         <img src="assets/images/homeIcon.png" alt="Home">
                     </a>
-                    <a href="leaderboard.html">
+                    <a href="leaderboard.php">
                         <img src="assets/images/trophyIcon.png" alt="Leaderboard">
                     </a>
                 </nav>
@@ -210,13 +210,13 @@ $_SESSION['current_page'] = 'Game2';
                         
                     <div id="game2-bottom">
                         <div id="game2-attempt-title"> 
-                            <h4> Attempts:  </h4>
+                            <h4 id="game2-guess-score"> GUESS SCORE: </h4>
                         </div>
                         <div id="game2-attempt-container"></div>
                         <div id="game2-stat">
                             <div>
-                                <h4 id="game2-difficulty">GUESSES LEFT: </h4>
-                                <h4 id="game2-tiles-turned">SCORE: </h4>
+                                <h4 id="game2-guesses-left">GUESSES LEFT: </h4>
+                                <h4 id="game2-total-score">TOTAL SCORE: </h4>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,10 @@ $_SESSION['current_page'] = 'Game2';
         <div id="blackBackground"></div>
         <div id="whiteFadeIn_game"></div>
     </div>
-    
+    <script>
+        const currentUserID = <?php echo json_encode($_SESSION['user_ID']?? null); ?>;
+        console.log("Current User ID:", currentUserID);
+    </script>
     <script src="code-breaker-game-script.js"></script>
     <script src="universal-style-script.js"></script>
 </body>

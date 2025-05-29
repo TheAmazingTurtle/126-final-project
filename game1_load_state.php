@@ -23,6 +23,11 @@ $retrieve_user_sql = "SELECT *
                       ORDER BY last_time_accessed DESC LIMIT 1";
 
 $stmt = $conn->prepare($retrieve_user_sql);
+if (!$stmt) {
+    echo json_encode(['success' => false, 'message' => 'DB prepare failed: ' . $conn->error]);
+    exit();
+}
+
 $stmt->bind_param("i", $user_ID);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -48,7 +53,7 @@ if($result->num_rows>0){
 } else {
     echo json_encode(["success"=> false,"message"=>"No saved game found."]);
 }
-file_put_contents("php_log.txt", json_encode($row), FILE_APPEND);
+
 $conn-> close();
 ?>
 

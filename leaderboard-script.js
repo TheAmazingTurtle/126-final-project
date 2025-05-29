@@ -12,17 +12,3 @@ function selectBoard(boardNum) {
         radio.checked = true;
     }
 }
-
-function loadLeaderboard(url, elementId) {
-  fetch(url)
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById(elementId).innerHTML = data;
-    })
-    .catch(error => {
-      console.error(`Error loading leaderboard from ${url}:`, error);
-    });
-}
-
-loadLeaderboard('leaderboard_game1.php', 'leaderboard-game1-body');
-loadLeaderboard('leaderboard_game2.php', 'leaderboard-game2-body');

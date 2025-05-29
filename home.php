@@ -24,7 +24,7 @@ $error = $_GET['error'] ?? '';
                 <img id="game-logo" src="assets/images/game-logo.png">
                 </a>
                 <nav>
-                    <a href="leaderboard.html"  class="game-link" data-target="leaderboard.html" >
+                    <a href="leaderboard.php"  class="game-link" data-target="leaderboard.php" >
                         <img src="https://png.pngtree.com/png-clipart/20191120/original/pngtree-trophy-icon-png-image_5069231.jpg" alt="Leaderboard">
                     </a>
                     <a href="about.html">
@@ -41,7 +41,7 @@ $error = $_GET['error'] ?? '';
 
                 <div id="game-route-container">
 
-                    <a href="leaderboard.html" class="game-link" data-target="leaderboard.html">
+                    <a href="leaderboard.php" class="game-link" data-target="leaderboard.php">
                         <img id="leaderboard-house" src="assets/images/leaderboard-house.png" alt="Leaderboard House">
                     </a>
 
@@ -49,7 +49,7 @@ $error = $_GET['error'] ?? '';
                         <img id="game1-house" src="assets/images/Shadow Checkout Resto.png">
                     </a>
 
-                    <a href="game2.html" class="game-link" data-target="game2.html" data-protected="true">
+                    <a href="game2.php" class="game-link" data-target="game2.php" data-protected="true">
                         <img id="game2-house" src="assets/images/Shadow Forks Up.png">
                     </a>
 

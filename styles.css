@@ -775,7 +775,7 @@ main {
 
 
 
-        #game2-bottom {
+        #game2-bottom{
             color: white;
             background-color: rgba(116, 19, 19, 0.3);
             width: 100%;
@@ -797,7 +797,7 @@ main {
                 align-items: center;
             }
 
-            #game2-attempt-title h4{
+            #game2-attempt-title h4, span{
                 position: relative;
                 left: 5%;
                 letter-spacing: 1vw;

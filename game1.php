@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_ID'])) {
                     <a id="btn-G1replay" href="game1.php" class="button-link" onclick="playAgain()">
                         <img src="assets/images/restartIcon.png" alt="Restart Button">
                     </a>
-                    <a href="leaderboard.html" class="button-link">
+                    <a href="leaderboard.php" class="button-link">
                         <img src="assets/images/trophyIcon.png" alt="Trophy Button">
                     </a>
                 </div>
@@ -48,7 +48,7 @@ if (!isset($_SESSION['user_ID'])) {
                     <a id="btn-home" href="home.php">
                         <img src="assets/images/homeIcon.png" alt="Home">
                     </a>
-                    <a id="btn-leaderboard" href="leaderboard.html">
+                    <a id="btn-leaderboard" href="leaderboard.php">
                         <img src="assets/images/trophyIcon.png" alt="Leaderboard">
                     </a>
 
