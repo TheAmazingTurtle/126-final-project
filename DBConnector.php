@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "gitlog-126";
+$dbname = "gitlog_gourmet_yes";
 
 // create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

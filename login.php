@@ -2,10 +2,10 @@
 session_start();
 require 'DBConnector.php';
 
-if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
-    header('HTTP/1.0 403 Forbidden');
-    exit('This file cannot be accessed directly.');
-}
+// if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
+//     header('HTTP/1.0 403 Forbidden');
+//     exit('This file cannot be accessed directly.');
+// }
 
 // If it's a GET request, return session info (for JavaScript fetch)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
