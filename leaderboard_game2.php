@@ -2,6 +2,12 @@
 header('Content-Type: text/html');
 include 'DBConnector.php';
 
+if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
+    header('HTTP/1.0 403 Forbidden');
+    exit('This file cannot be accessed directly.');
+}
+
+
 $CB_high_scores_query = "SELECT user_name, rating_CB, CB_highest_score 
                         FROM user 
                         WHERE CB_highest_score > 0
