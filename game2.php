@@ -215,6 +215,7 @@ $_SESSION['current_page'] = 'Game2';
                         <div id="game2-attempt-container"></div>
                         <div id="game2-stat">
                             <div>
+                                <h4 id="game2-difficulty">DIFFICULTY: Easy </h4>
                                 <h4 id="game2-guesses-left">GUESSES LEFT: </h4>
                                 <h4 id="game2-total-score">TOTAL SCORE: </h4>
                             </div>

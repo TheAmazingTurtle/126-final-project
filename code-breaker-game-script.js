@@ -1,6 +1,6 @@
 const numGuessOptions = 4;
 const numGuessTypes = 4;
-let maxAttempts = 5;
+let maxAttempts = 10;
 
 const correctValues = [];
 const attempts = []
@@ -218,6 +218,7 @@ function evaluateGuess() {
     document.getElementById("correct-guess-prompt").innerHTML = `Correct Guess: ${correctGuess}`;
     document.getElementById("correct-row-prompt").innerHTML = `Correct Row: ${correctRow}`;
     document.getElementById('game2-guess-score').innerHTML = `GUESS SCORE: ${guessScore}`;
+    document.getElementById('game2-difficulty').innerHTML = `DIFFICULTY: ${difficulty}`;
     document.getElementById('game2-guesses-left').textContent = `GUESSES LEFT: ${guessesLeft}`;
     document.getElementById('game2-total-score').textContent = `TOTAL SCORE: ${totalScore}`;
    
