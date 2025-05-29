@@ -1,4 +1,4 @@
-const numGuessOptions = 5;
+const numGuessOptions = 4;
 const numGuessTypes = 4;
 let maxAttempts = 5;
 
