@@ -6,6 +6,11 @@ if (!isset($_SESSION['user_ID'])) {
     header("Location: login.php"); // Redirect if not logged in
     exit();
 }
+
+$_SESSION['difficulty'] = 'Easy';
+$_SESSION['current_page'] = 'Game2';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -124,10 +129,6 @@ if (!isset($_SESSION['user_ID'])) {
                                                 <input type="radio" name="fruit-choice" value="3">
                                                 <img src="assets/cabinet/fruit-3.png" id="fruit-3" class="fruit">
                                             </td>
-                                            <td>
-                                                <input type="radio" name="fruit-choice" value="4">
-                                                <img src="assets/cabinet/fruit-4.png" id="fruit-4" class="fruit">
-                                            </td>
                                         </tr>
 
                                         <tr id="main-row">
@@ -146,10 +147,6 @@ if (!isset($_SESSION['user_ID'])) {
                                             <td>
                                                 <input type="radio" name="main-choice" value="3">
                                                 <img src="assets/cabinet/main-3.png" id="main-3" class="main">
-                                            </td>
-                                            <td>
-                                                <input type="radio" name="main-choice" value="4">
-                                                <img src="assets/cabinet/main-4.png" id="main-4" class="main">
                                             </td>
                                         </tr>
 
@@ -170,10 +167,6 @@ if (!isset($_SESSION['user_ID'])) {
                                                 <input type="radio" name="drink-choice" value="3">
                                                 <img src="assets/cabinet/drink-3.png" id="drink-3" class="drink">
                                             </td>
-                                            <td>
-                                                <input type="radio" name="drink-choice" value="4">
-                                                <img src="assets/cabinet/drink-4.png" id="drink-4" class="drink">
-                                            </td>
                                         </tr>
 
                                         <tr id="dessert-row">
@@ -192,10 +185,6 @@ if (!isset($_SESSION['user_ID'])) {
                                             <td>
                                                 <input type="radio" name="dessert-choice" value="3">
                                                 <img src="assets/cabinet/dessert-3.png" id="dessert-3" class="dessert">
-                                            </td>
-                                            <td>
-                                                <input type="radio" name="dessert-choice" value="4">
-                                                <img src="assets/cabinet/dessert-4.png" id="dessert-4" class="dessert">
                                             </td>
                                         </tr>
 

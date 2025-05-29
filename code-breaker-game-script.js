@@ -1,6 +1,6 @@
 const numGuessOptions = 5;
 const numGuessTypes = 4;
-const maxAttempts = 6;
+let maxAttempts = 5;
 
 const correctValues = [];
 const attempts = []
