@@ -10,3 +10,39 @@ Game 1
 Game 2
 - need 4 food category {drink, fruit, main, dessert}
 - need submit and reset asset
+
+Frontend (JavaScript)
+→ Collect game state and send it to backend (PHP) using AJAX (fetch).
+
+Backend (PHP)
+→ Receive the data and insert it into your MySQL database.
+
+Database (MySQL via phpMyAdmin)
+→ Store the game data (player name, score, level, etc.).
+
+
+
+
+
+
+Basic Flow for Saving Game State
+Frontend: Your game collects the current state 
+(like score, level, inventory) 
+and sends it via an AJAX request to the backend (PHP).
+
+Backend (PHP): The PHP script receives the game state data, 
+validates it, 
+then stores it into your SQL database.
+
+Load state: When the player opens the game again, 
+the frontend requests the saved state from the backend, 
+which reads from the database and returns the state for the game to resume.
+
+
+
+
+
+
+
+
+

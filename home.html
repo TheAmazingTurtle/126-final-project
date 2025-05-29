@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="styles.css">
     <title>GITLOG GOURMET</title>
 </head>
-<body class="home-page">
+<!-- the php lines within body was omitted, since these will lead to an error-->
+<body class="home-page"> 
     <div id="aspect-ratio-wrapper">
+    
         <div id="game-container">
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
-
+                </a>
                 <nav>
                     <a href="leaderboard.html">
                         <img src="assets/images/trophyIcon.png" alt="Leaderboard">
@@ -31,17 +33,17 @@
                         <img id="leaderboard-house" src="assets/images/leaderboard-house-flag.png" alt="Leaderboard House">
                     </a>
 
-                    <a href="game1.html" class="game-link" data-target="game1.html">
+                    <a href="game1.php" class="game-link" data-target="game1.php" data-protected="true">
                         <img id="game1-house" src="assets/images/Shadow Checkout Resto.png">
                     </a>
 
-                    <a href="game2.html" class="game-link" data-target="game2.html">
+                    <a href="game2.html" class="game-link" data-target="game2.html" data-protected="true">
                         <img id="game2-house" src="assets/images/Shadow Forks Up.png">
                     </a>
 
                 </div>
             </main>
-
+        
 
             <hr id="horizontal-line">
 
@@ -57,8 +59,7 @@
         
 
     </div>
-    
-    
-    <script src="animationElements.js"></script>
+    <script src="home-script.js" defer></script>
+
 </body>
 </html>

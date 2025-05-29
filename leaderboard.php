@@ -15,15 +15,12 @@
 
                 <nav>
                     
-                    <a href="home.html">
-                        <img src="assets/images/homeIcon.png" alt="Home">
                     <a href="home.php">
                         <img src="https://cdn-icons-png.flaticon.com/512/61/61972.png" alt="Home">
                     </a>
-                    <!-- <a href="home.html">
                     <a href="home.php">
                         <img src="https://img.freepik.com/free-psd/black-question-mark-painted-texture-3d-render-uncertainty-concept_632498-24351.jpg?semt=ais_hybrid&w=740" alt="Tutorial">
-                    </a> -->
+                    </a>
                 </nav>
             </header>
             <main>
@@ -44,7 +41,9 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-game1-body">
-                                
+                                <?php
+                                    include 'leaderboard_game1.php';
+                                ?>
                             </tbody>
                         </table>
 
@@ -59,7 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard-game2-body">
-                                
+                                <?php
+                                    include 'leaderboard_game2.php';
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -73,22 +74,24 @@
             </footer>
         </div>
 
+        <!-- <div id="home_leaderboard_transition"></div> -->
 
         <div id="blackBackground"></div>
         <div id="whiteFadeIn_game"></div>
         <ul class="background">
-            <li><img src="assets/tile-entity/0.png"></li>
-            <li><img src="assets/tile-entity/1.png"></li>
-            <li><img src="assets/tile-entity/10.png"></li>
-            <li><img src="assets/tile-entity/11.png"></li>
-            <li><img src="assets/tile-entity/12.png"></li>
-            <li><img src="assets/tile-entity/13.png"></li>
-            <li><img src="assets/tile-entity/14.png"></li>
-            <li><img src="assets/tile-entity/15.png"></li>
-            <li><img src="assets/tile-entity/15.png"></li>
-            <li><img src="assets/tile-entity/16.png"></li>
-
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
         </ul>
+
+        
 
     </div>
     <script src="leaderboard-script.js"></script>

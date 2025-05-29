@@ -24,9 +24,9 @@ CREATE TABLE `user` (
     user_name VARCHAR(10) UNIQUE NOT NULL,
     password INT NOT NULL CHECK (password >= 0 AND password <= 9999),
     MG_highest_score INT,
-    rating_MG INT,
+    rating_MG ENUM('1','2','3','4','5'),
     CB_highest_score INT,
-    rating_CB INT,
+    rating_CB ENUM('1','2','3','4','5'),
     PRIMARY KEY(user_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -34,10 +34,10 @@ CREATE TABLE `matching_game`(
     user_ID INT NOT NULL,
     MG_game_ID INT PRIMARY KEY AUTO_INCREMENT,
     MG_score INT,
-    tiles_turned_count INT,  -- Stores the tile IDs (e.g., [1, 2, 3]) instead of file paths
-    tile_placement JSON, -- Stores the tile placements (e.g., [1, 4, 2])
+    tiles_turned_count INT, 
+    full_tile_state JSON, 
     time_elapsed INT,      -- Time limit in seconds
-    last_time_accessed DATETIME,
+    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     difficulty ENUM('Easy', 'Medium', 'Hard'),
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -46,17 +46,13 @@ CREATE TABLE `code_breaker`(
     user_ID INT NULL,
     CB_game_ID INT PRIMARY KEY AUTO_INCREMENT,                    -- Unique identifier for the game                -- Username (foreign key relationship could be here)
     CB_score INT,
-    correct_guess INT,
-    correct_col INT,                       -- User's saved score for the game
-    guesses_left INT,                        -- Number of remaining attempts
-    last_time_accessed DATETIME,                   -- Last time the game was accessed
-    attempts_combination JSON,                      -- JSON array of asset IDs for the correct combination
-    user_combination JSON,                         -- JSON array of asset IDs for the user's guessed combination
-    -- difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
+    correct_values JSON,
+    current_incomplete_guess JSON,                  
+    array_attempts JSON,                  
+    last_time_accessed DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,           -- Last time the game was accessed
+    difficulty ENUM('Easy', 'Medium', 'Hard'),     -- Difficulty level of the game
     FOREIGN KEY(user_ID) REFERENCES `user`(user_ID)  -- Assuming there's a player table with usernames
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
