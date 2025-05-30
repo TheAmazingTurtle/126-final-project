@@ -99,7 +99,7 @@ function createAttemptObjects(){
 }
 
 function assignOnClickEventToImg(){
-    document.querySelectorAll('#game2-cabinet table img').forEach(choice => {
+    document.querySelectorAll('#game2-cabinet table td > img').forEach(choice => {
         choice.addEventListener('click', function () {
             const radio = choice.closest("td").querySelector("input[type='radio']");
 
