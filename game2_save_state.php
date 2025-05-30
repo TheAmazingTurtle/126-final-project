@@ -4,11 +4,6 @@ ini_set('display_errors', 0); // Don't show errors to frontend
 ini_set('log_errors', 1);     // Log them to PHP error log
 error_reporting(E_ALL);
 
-// if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
-//     header('HTTP/1.0 403 Forbidden');
-//     exit('This file cannot be accessed directly.');
-// }
-
 session_start();
 require_once'DBConnector.php';
 
