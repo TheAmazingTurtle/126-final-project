@@ -7,7 +7,7 @@ const comboPointBonus = 10;
 
 let numRows = 10;
 let numCols = 10;
-let totalTiles = numRows * numCols;
+let totalTiles = null;
 
 let numVarieties = 10;
 
@@ -28,14 +28,43 @@ window.addEventListener("load", adjustTileMatrix);
 window.addEventListener("resize", adjustTileMatrix);
 
 function initializePage(){
-    if (currentUserID !== null){
+   if (currentUserID !== null){
       MG_loadGameState();
-    }
+    } 
+    retrieveChosenDifficulty();    
     generateRandomTileValues();
     updateClock();
     setInterval(updateClock, 1000);
 
-    refreshStats();
+  refreshStats();
+}
+
+function retrieveChosenDifficulty() {
+    const params = new URLSearchParams(window.location.search);
+    const difficulty = params.get('difficulty');
+
+    switch(difficulty){
+        case 'easy':
+            numRows = 4;
+            numCols = 4;
+            numVarieties = 4;
+            break;
+        case 'medium':
+            numRows = 6;
+            numCols = 6;
+            numVarieties = 6;
+            break;
+        case 'hard':
+            numRows = 8;
+            numCols = 8;
+            numVarieties = 8;
+            break;
+        default:
+            break;
+    }
+
+    totalTiles = numRows * numCols;
+
 }
 
 function shuffleArray(array) {

@@ -1,14 +1,15 @@
-const numGuessOptions = 4;
-const numGuessTypes = 4;
+let numGuessOptions = 4;
+let numGuessTypes = 4;
 let maxAttempts = 10;
 
 let correctValues = [];
+let guessAttemps = [];
 let attempts = []
-let guessesLeft = 0;
+let guessesLeft = 10;
 let guessScore = 0;
 
 let attemptNum = 1;
-let difficulty = "Easy";
+let difficulty = null
 let totalScore = 0;
 let currentIncompleteGuess = {
     fruit: null,
@@ -23,12 +24,42 @@ document.getElementById("game2-reset-button").addEventListener("click", resetGue
 document.getElementById("game2-submit-button").addEventListener("click", evaluateGuess);
 
 function initializeGame() {
+    retrieveChosenDifficulty();
+
+
     if (currentUserID !== null && guessesLeft !== 0){
       CB_loadGameState();
     }
     createAttemptObjects();
     assignOnClickEventToImg(currentIncompleteGuess);
     generateOrderToGuess();
+
+    document.getElementById('game2-difficulty').innerHTML = `DIFFICULTY: ${difficulty.toUpperCase()}`;
+    document.getElementById('game2-guesses-left').textContent = `GUESSES LEFT: ${guessesLeft}`;
+    document.getElementById('game2-total-score').textContent = `TOTAL SCORE: ${totalScore}`;
+}
+
+function retrieveChosenDifficulty() {
+    const params = new URLSearchParams(window.location.search);
+    difficulty = params.get('difficulty');
+
+    switch(difficulty){
+        case 'easy':
+            maxAttempts = 10;
+            guessesLeft = 10;
+            break;
+        case 'medium':
+            maxAttempts = 7;
+            guessesLeft = 7;
+            break;
+        case 'hard':
+            maxAttempts = 5;
+            guessesLeft = 5;
+            break;
+        default:
+            break;
+    }
+
 }
 
 function createAttemptObjects(){
@@ -71,7 +102,7 @@ function createAttemptObjects(){
 }
 
 function assignOnClickEventToImg(){
-    document.querySelectorAll('#game2-cabinet table img').forEach(choice => {
+    document.querySelectorAll('#game2-cabinet table td > img').forEach(choice => {
         choice.addEventListener('click', function () {
             const radio = choice.closest("td").querySelector("input[type='radio']");
 
@@ -152,12 +183,19 @@ function evaluateGuess() {
         return;
     }
 
+    if (!isUniqueSubmission()){
+        alert("You have already guessed this combination, pick another one.");
+        return;
+    }
+
     const playerFruitGuessValue = document.querySelector('input[name="fruit-choice"]:checked').value;
     const playerMainGuessValue = document.querySelector('input[name="main-choice"]:checked').value;
     const playerDrinkGuessValue = document.querySelector('input[name="drink-choice"]:checked').value;
     const playerDessertGuessValue = document.querySelector('input[name="dessert-choice"]:checked').value;
 
     const playerGuessValues = [playerFruitGuessValue, playerMainGuessValue, playerDrinkGuessValue, playerDessertGuessValue];
+
+    guessAttemps.push(playerGuessValues.slice());
 
     let correctGuess = 0;
     let correctRow = 0;
@@ -225,7 +263,6 @@ function evaluateGuess() {
     document.getElementById("correct-guess-prompt").innerHTML = `Correct Guess: ${correctGuess}`;
     document.getElementById("correct-row-prompt").innerHTML = `Correct Row: ${correctRow}`;
     document.getElementById('game2-guess-score').innerHTML = `GUESS SCORE: ${guessScore}`;
-    document.getElementById('game2-difficulty').innerHTML = `DIFFICULTY: ${difficulty}`;
     document.getElementById('game2-guesses-left').textContent = `GUESSES LEFT: ${guessesLeft}`;
     document.getElementById('game2-total-score').textContent = `TOTAL SCORE: ${totalScore}`;
    
@@ -256,6 +293,27 @@ function isValidSubmit() {
     });
 
     return guessComplete;
+}
+
+function isUniqueSubmission(){
+    const fruitGuess = document.querySelector('input[name="fruit-choice"]:checked').value;
+    const mainGuess = document.querySelector('input[name="main-choice"]:checked').value;
+    const drinkGuess = document.querySelector('input[name="drink-choice"]:checked').value;
+    const dessertGuess = document.querySelector('input[name="dessert-choice"]:checked').value;
+
+    let isUnique = true;
+    for (let i = 0; i < guessAttemps.length; i++){
+        const fruitCheck = fruitGuess == guessAttemps[i][0];
+        const mainCheck = mainGuess == guessAttemps[i][1];
+        const drinkCheck = drinkGuess == guessAttemps[i][2];
+        const dessertCheck = dessertGuess == guessAttemps[i][3];
+
+        if (fruitCheck && mainCheck && drinkCheck && dessertCheck) {
+            isUnique = false;
+            break;
+        }
+    }
+    return isUnique;
 }
 
 function endGame(win){

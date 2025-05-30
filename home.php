@@ -21,6 +21,15 @@ $error = $_GET['error'] ?? '';
     <div id="aspect-ratio-wrapper">
     
         <div id="game-container">
+            <div id="choose-difficulty-card" class="hidden">
+                <h2>Choose Difficulty:</h2>
+                <div class="difficulties">
+                    <h3 data-difficulty="easy">Easy</h3>
+                    <h3 data-difficulty="medium">Medium</h3>
+                    <h3 data-difficulty="hard">Hard</h3>
+                </div>
+            </div>
+
             <header>
                 <img id="game-logo" src="assets/images/game-logo.png">
                 </a>
@@ -42,15 +51,15 @@ $error = $_GET['error'] ?? '';
 
                 <div id="game-route-container">
 
-                    <a href="leaderboard.php" class="game-link" data-target="leaderboard.php">
+                    <a href="leaderboard.php" class="game-link">
                         <img id="leaderboard-house" src="assets/images/leaderboard-house.png" alt="Leaderboard House">
                     </a>
 
-                    <a href="game1.php" class="game-link" data-target="game1.php" data-protected="true">
-                        <img id="game1-house" src="assets/images/Shadow Checkout Resto.png">
+                    <a href="game1.php" class="game-link" data-protected="true">
+                        <img id="game1-house" src="assets/images/Shadow Checkout Resto.png" >
                     </a>
 
-                    <a href="game2.php" class="game-link" data-target="game2.php" data-protected="true">
+                    <a href="game2.php" class="game-link" data-protected="true">
                         <img id="game2-house" src="assets/images/Shadow Forks Up.png">
                     </a>
 

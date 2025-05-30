@@ -1,5 +1,9 @@
 console.log('This is home script js, running and loaded');
 
+let targetUrl = '';
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log('Number of .game-link elements:', document.querySelectorAll('.game-link').length);
 
@@ -174,54 +178,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function showDifficultyModal(onSelect) {
+    const modal = document.getElementById('choose-difficulty-card');
+    modal.classList.remove('hidden');
+
+    const buttons = modal.querySelectorAll('h3');
+    buttons.forEach(button => {
+      button.onclick = () => {
+        const difficulty = button.dataset.difficulty;
+        modal.classList.add('hidden'); // Hide after selection
+        onSelect(difficulty); // Continue with redirect
+      };
+    });
+  }
+
   function setupGameLinkAnimations() {
     document.querySelectorAll('.game-link').forEach(link => {
       if (link.getAttribute('onclick') && link.getAttribute('onclick').includes('toggle()')) {
         return; // skip
       }
 
-      link.addEventListener('click', function(e) {
-        if (!isLoggedIn) return; // prevent animation if not logged in
+      link.addEventListener('click', function (e) {
+        if (!isLoggedIn) return;
 
         e.preventDefault();
+
+        const targetHref = this.getAttribute('href'); // Store link
         const titleCard = document.getElementById('title-card');
         const blackBackground = document.getElementById('blackBackground');
         const whiteFadeIn = document.getElementById('whiteFadeIn');
         const home_leaderboard_transition = document.getElementById('home_leaderboard_transition');
 
-        // Reset animation
-        titleCard.style.animation = 'none';
-        void titleCard.offsetWidth; // reflow
+        // Reset animations
+        [titleCard, blackBackground, whiteFadeIn, home_leaderboard_transition].forEach(el => {
+          el.style.animation = 'none';
+          void el.offsetWidth;
+        });
 
-        blackBackground.style.animation = 'none';
-        void blackBackground.offsetWidth;
+        // Play animations
+        titleCard.style.animation = 'gitlogZoomIn 1.55s ease-in-out forwards';
+        blackBackground.style.animation = 'blackBackgroundFadeIn 1s ease-in-out forwards';
+        whiteFadeIn.style.animation = 'whiteFadeIn_Expand 1.55s ease-in-out forwards';
 
-        whiteFadeIn.style.animation = 'none';
-        void whiteFadeIn.offsetWidth;
-
-        home_leaderboard_transition.style.animation = 'none';
-        void home_leaderboard_transition.offsetWidth;
-
-        // Start animation
-        titleCard.style.animationName = 'gitlogZoomIn';
-        titleCard.style.animationDuration = '1.55s';
-        titleCard.style.animationFillMode = 'forwards';
-        titleCard.style.animationTimingFunction = 'ease-in-out';
-
-        blackBackground.style.animationName = 'blackBackgroundFadeIn';
-        blackBackground.style.animationDuration = '1s';
-        blackBackground.style.animationTimingFunction = 'ease-in-out';
-        blackBackground.style.animationFillMode = 'forwards';
-
-        whiteFadeIn.style.animationName = 'whiteFadeIn_Expand';
-        whiteFadeIn.style.animationDuration = '1.55s';
-        whiteFadeIn.style.animationTimingFunction = 'ease-in-out';
-        whiteFadeIn.style.animationFillMode = 'forwards';
-
+        // After animation, show difficulty modal
         setTimeout(() => {
-          window.location.href = this.getAttribute('href');
+          showDifficultyModal(difficulty => {
+            const finalUrl = `${targetHref}?difficulty=${encodeURIComponent(difficulty)}`;
+            window.location.href = finalUrl;
+          });
         }, 1500);
       });
     });
   }
+
 });
