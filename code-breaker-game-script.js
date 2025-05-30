@@ -24,12 +24,10 @@ document.getElementById("game2-reset-button").addEventListener("click", resetGue
 document.getElementById("game2-submit-button").addEventListener("click", evaluateGuess);
 
 function initializeGame() {
-    retrieveChosenDifficulty();
-
-
     if (currentUserID !== null && guessesLeft !== 0){
       CB_loadGameState();
     }
+    retrieveChosenDifficulty();
     createAttemptObjects();
     assignOnClickEventToImg(currentIncompleteGuess);
     generateOrderToGuess();
