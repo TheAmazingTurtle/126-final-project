@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: text/html');
-include 'DBConnector.php';
+require_once 'DBConnector.php';
 
 if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
     header('HTTP/1.0 403 Forbidden');
@@ -8,7 +8,7 @@ if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 
-$CB_high_scores_query = "SELECT user_name, rating_CB, CB_highest_score 
+$CB_high_scores_query = "SELECT user_name, CB_highest_score 
                         FROM user 
                         WHERE CB_highest_score > 0
                         ORDER BY CB_highest_score DESC;";
@@ -22,7 +22,6 @@ if ($CB_high_scores_result->num_rows > 0) {
         echo "<tr>".
             "<td align='center'>".$CB_rank++."</td>".
             "<td align='center'>".htmlspecialchars($row["user_name"])."</td>".
-            "<td align='center'>".$row["rating_CB"]."</td>".
             "<td align='center'>".$row["CB_highest_score"]."</td>".
             "</tr>";
     }

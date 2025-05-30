@@ -1,12 +1,6 @@
 <?php
-ini_set('display_errors', 1); // Don't show errors to frontend
-ini_set('log_errors', 1);     // Log them to PHP error log
-error_reporting(E_ALL);
-
-
-
 session_start();
-require_once'DBConnector.php';
+require_once 'DBConnector.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_ID'])){
@@ -19,10 +13,10 @@ $user_ID = $_SESSION['user_ID'];
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (!$data){
-    echo json_encode(['success'=> false, 'message' => 'No data received!']);
-    exit;
-}
+// if (!is_array($data) || empty($data)){
+//     echo json_encode(['success'=> false, 'message' => 'No data received meow!']);
+//     exit;
+// }
 
 $score = $data['MG_score'] ?? 0;
 $tiles_turned = $data['tiles_turned_count'] ?? 0;

@@ -23,8 +23,11 @@ document.getElementById("game2-reset-button").addEventListener("click", resetGue
 document.getElementById("game2-submit-button").addEventListener("click", evaluateGuess);
 
 function initializeGame() {
+    if (currentUserID !== null && guessesLeft !== 0){
+      CB_loadGameState();
+    }
     createAttemptObjects();
-    assignOnClickEventToImg();
+    assignOnClickEventToImg(currentIncompleteGuess);
     generateOrderToGuess();
 }
 
@@ -72,11 +75,13 @@ function assignOnClickEventToImg(){
         choice.addEventListener('click', function () {
             const radio = choice.closest("td").querySelector("input[type='radio']");
 
-            if (radio) {
+             if (radio) {
                 radio.checked = true;
+            } else {
+                console.warn("No radio button found near this image", choice);
+                return; // Prevent further execution if radio not found
             }
 
-            radio.checked = true;
             const value = radio.value;
 
             let divGuessContainer;
@@ -229,7 +234,7 @@ function evaluateGuess() {
     if (correctGuess == numGuessTypes ){
         endGame(true);
     }
-    else if (attemptNum - 1 == maxAttempts){
+    else if (guessesLeft - 1 == maxAttempts){
         endGame(false);
     }
 }
@@ -273,7 +278,7 @@ function endGame(win){
 
     document.getElementById('game2-end-card').style.display = 'flex';
     document.getElementById('game2-result').innerHTML = result;
-    document.getElementById('attempts-end-card').innerHTML = attemptNum;
+    document.getElementById('attempts-end-card').innerHTML = attemptNum-1;
     document.getElementById('difficulty-end-card').innerHTML = difficulty;
 
     const fruitCorrectImg = document.createElement('img');
@@ -356,7 +361,7 @@ function restoreLoadedAttempts() {
 }
 
 function refreshStats(guessScore) {
-    let guessesLeft = maxAttempts - attemptNum;
+    let guessesLeft = maxAttempts - attempts.length;
 
     document.getElementById('game2-guess-score').innerHTML = `GUESS SCORE: ${guessScore}`;
     document.getElementById('game2-difficulty').innerHTML = `DIFFICULTY: ${difficulty}`;
@@ -407,10 +412,12 @@ function CB_saveGameState(){
     })
     .then(data=> {
         console.log("Game saved successfully: ", data);
+        return data;
     })
 
     .catch(error=>{
         console.error("Error saving game:", error);
+        throw error;
     });
 }
 
@@ -460,27 +467,29 @@ function CB_loadGameState() {
     restoreLoadedAttempts();
     refreshStats(guessScore);
 
-    // isLoadingGame = false;
     console.log("CB_loadGameState: Finished loading game state successfully.");
     return true;
   })
   .catch(error => {
     console.error("CB_loadGameState: Error loading game:", error);
-    // isLoadingGame = false;
     return false;
   });
 }
 
+document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', async (event) => {
+      event.preventDefault();
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "s") {
-    console.log("Manual save triggered with S key");
-    CB_saveGameState();
-  } else if (e.key==='l'){
-    console.log("Manual load triggered with L key");
-    CB_loadGameState();
-  }
+      const href = link.href;
+      console.log("Clicked link href:", href);
+
+      try {
+        await CB_saveGameState();
+        console.log("Save complete, navigating now...");
+      } catch (e) {
+        console.log("Save failed, navigating anyway...");
+      }
+
+      window.location.href = href;
+    });
 });
-
-
-

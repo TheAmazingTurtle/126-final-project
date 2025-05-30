@@ -8,7 +8,7 @@ if (__FILE__ === realpath($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 
-$MG_high_scores_query = "SELECT user_name, rating_MG, MG_highest_score 
+$MG_high_scores_query = "SELECT user_name, MG_highest_score 
                         FROM user 
                         WHERE MG_highest_score > 0
                         ORDER BY MG_highest_score DESC;";
@@ -22,7 +22,6 @@ if ($MG_high_scores_result->num_rows > 0) {
         echo "<tr>".
             "<td align='center'>".$MG_rank++."</td>".
             "<td align='center'>".htmlspecialchars($row["user_name"])."</td>".
-            "<td align='center'>".$row["rating_MG"]."</td>".
             "<td align='center'>".$row["MG_highest_score"]."</td>".
             "</tr>";
     }

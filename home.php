@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'DBConnector.php';
 
 $isLoggedIn = isset($_SESSION['user_name']);
 $user_name = ($isLoggedIn) ? $_SESSION['user_name'] : 'Guest';

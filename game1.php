@@ -3,7 +3,7 @@ session_start();
 require_once 'DBConnector.php';
 
 if (!isset($_SESSION['user_ID'])) {
-    header("Location: login.php"); // Redirect if not logged in
+    header("Location: home.php"); // Redirect if not logged in
     exit();
 }
 ?>

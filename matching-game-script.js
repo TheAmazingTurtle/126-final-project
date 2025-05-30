@@ -28,6 +28,9 @@ window.addEventListener("load", adjustTileMatrix);
 window.addEventListener("resize", adjustTileMatrix);
 
 function initializePage(){
+    if (currentUserID !== null){
+      MG_loadGameState();
+    }
     generateRandomTileValues();
     updateClock();
     setInterval(updateClock, 1000);
@@ -367,22 +370,23 @@ function MG_saveGameState(){
         },
         body: JSON.stringify(MG_gameState)
     })
-    .then(response=> {
+     .then(response => {
         console.log("Fetch response status:", response.status);  
-        return response.json()
+        return response.json();
     })
-    .then(data=> {
+    .then(data => {
         console.log("Game saved successfully: ", data);
+        return data; // resolve with data
     })
-
-    .catch(error=>{
+    .catch(error => {
         console.error("Error saving game:", error);
+        throw error; // re-throw to reject promise
     });
 }
 
 function MG_loadGameState() {
   console.log("MG_loadGameState: Starting to load game state...");
-  isLoadingGame = true;
+
   return fetch("game1_load_state.php", {
     method: "POST",
     headers: {
@@ -399,8 +403,7 @@ function MG_loadGameState() {
     
     if (!data.success) {
       console.error("MG_loadGameState: Failed to load game state:", data.message);
-      isLoadingGame = false;
-      return false;
+
     }
 
     // Restore variables
@@ -427,27 +430,28 @@ function MG_loadGameState() {
     refreshStats();
     console.log("MG_loadGameState: Called refreshStats()");
 
-    isLoadingGame = false;
     console.log("MG_loadGameState: Finished loading game state successfully.");
     return true;
   })
   .catch(error => {
     console.error("MG_loadGameState: Error loading game:", error);
-    isLoadingGame = false;
-    return false;
   });
 }
 
+document.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', async (event) => {
+      event.preventDefault();
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "s") {
-    console.log("Manual save triggered with S key");
-    MG_saveGameState();
-  } else if (e.key==='l'){
-    console.log("Manual load triggered with L key");
-    MG_loadGameState();
-  }
-});
+      const href = link.href;
+      console.log("Clicked link href:", href);
 
+      try {
+        await MG_saveGameState();
+        console.log("Save complete, navigating now...");
+      } catch (e) {
+        console.log("Save failed, navigating anyway...");
+      }
 
-
+      window.location.href = href;
+    });
+  });

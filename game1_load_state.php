@@ -2,18 +2,14 @@
 ini_set('display_errors', 0); // Don't show errors to frontend
 ini_set('log_errors', 1);     // Log them to PHP error log
 error_reporting(E_ALL);
-
-
 header('Content-Type: application/json'); 
-
 session_start();
-include 'DBConnector.php';
+require_once 'DBConnector.php';
 
 if (!isset($_SESSION['user_ID'])) {
     echo json_encode(['success' => false, 'message' => 'Not logged in']);
     exit();
 }
-
 
 $user_ID = $_SESSION['user_ID'];
 

@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user_name = trim($_POST['user_name']);
-        $password = (int)$_POST['password'];
+        $password = $_POST['password'];
 
         $stmt = $conn->prepare("SELECT user_ID FROM user WHERE user_name = ? AND password = ?");
         $stmt->bind_param("si", $user_name, $password);

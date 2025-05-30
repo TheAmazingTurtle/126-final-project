@@ -36,7 +36,6 @@
                                 <tr>
                                     <th>RANK</th>
                                     <th>NAME</th>
-                                    <th>RATING</th>
                                     <th>SCORE</th>
                                 </tr>
                             </thead>
@@ -53,7 +52,6 @@
                                 <tr>
                                     <th>RANK</th>
                                     <th>NAME</th>
-                                    <th>RATING</th>
                                     <th>SCORE</th>
                                 </tr>
                             </thead>
